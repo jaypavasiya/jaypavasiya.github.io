@@ -2,11 +2,11 @@ import { useEffect, useState } from 'react';
 
 
 // var context = canvas.getContext('2d');
-var grid = 8;
+var grid = 16;
 var count = 0;
 var snake = {
-	x: 80,
-	y: 80,
+	x: 160,
+	y: 160,
 	// snake velocity. moves one grid length every frame in either the x or y direction
 	dx: grid,
 	dy: 0,
@@ -18,6 +18,15 @@ var snake = {
 var apple = {
 	x: 320,
 	y: 320
+};
+var apple1 = {
+	x: 320,
+	y: 320
+};
+
+var megaApple = {
+	x: 560,
+	y: 560
 };
 function Snake() {
 
@@ -32,7 +41,9 @@ function Snake() {
 		canvas = document.getElementById('game');
 		// eslint-disable-next-line
 		context = canvas.getContext('2d');
-		document.addEventListener('keydown', (e)=>gameControl(e));
+		canvas.width = window.innerWidth;
+		canvas.height = window.innerHeight - 10;
+		document.addEventListener('keydown', (e) => gameControl(e));
 		requestAnimationFrame(loop);
 
 	}, [])
@@ -106,33 +117,68 @@ function Snake() {
 		// draw apple
 		context.fillStyle = 'red';
 		context.fillRect(apple.x, apple.y, grid - 1, grid - 1);
+		context.fillRect(apple1.x, apple1.y, grid - 1, grid - 1);
+		if (snake.cells.length >= 9 && snake.cells.length % 10 === 0) {
+			context.fillStyle = 'white';
+			context.fillRect(megaApple.x, megaApple.y, grid - 1, grid - 1);
+		}
 		// print game score
 		setScore(snake.cells.length - 4);
+		context.font = "20px Arial";
+		context.fillText(`Score - ${snake.cells.length}`,10,50);
 		// draw snake one cell at a time
 		context.fillStyle = '#5dea62';
 		snake.cells.forEach(function (cell, index) {
 			// drawing 1 px smaller than the grid creates a grid effect in the snake body so you can see how long it is
 			context.fillRect(cell.x, cell.y, grid - 1, grid - 1);
 			// snake ate apple
-			if (cell.x === apple.x && cell.y === apple.y) {
+			console.log(megaApple.x, megaApple.y,'pos');
+			if ((cell.x === apple.x && cell.y === apple.y)) {
 				snake.maxCells++;
 				// canvas is 400x400 which is 25x25 grids 
-				apple.x = getRandomInt(0, 25) * grid;
-				apple.y = getRandomInt(0, 25) * grid;
+				let w = canvas.width / grid;
+				let h = canvas.height / grid;
+				apple.x = getRandomInt(0, w) * grid;
+				apple.y = getRandomInt(0, h) * grid;
+			} else if (cell.x === apple1.x && cell.y === apple1.y) {
+				snake.maxCells++;
+				// canvas is 400x400 which is 25x25 grids 
+				let w = canvas.width / grid;
+				let h = canvas.height / grid;
+				apple1.x = getRandomInt(0, w) * grid;
+				apple1.y = getRandomInt(0, h) * grid;
+			}else if(cell.x === megaApple.x && cell.y === megaApple.y){
+				snake.maxCells = snake.maxCells + 2;
+				// snake.maxCells++;
+				// snake.maxCells++;
+				// canvas is 400x400 which is 25x25 grids
+				
 			}
+			// else if (snake.cells.length >= 9 && snake.cells.length % 10 === 0) {
+			// 	// snake died
+			// 	let w = canvas.width / grid;
+			// 	let h = canvas.height / grid;
+			// 	megaApple.x = getRandomInt(0, w) * grid;
+			// 	megaApple.y = getRandomInt(0, h) * grid;
+			// 	// snake.alive = false;
+			// }
 			// check collision with all cells after this one (modified bubble sort)
 			for (var i = index + 1; i < snake.cells.length; i++) {
 				// snake occupies same space as a body part. reset game
 				if (cell.x === snake.cells[i].x && cell.y === snake.cells[i].y) {
+					let w = canvas.width / grid;
+					let h = canvas.height / grid;
 					console.log('GAME OVER');
-					snake.x = 80;
-					snake.y = 80;
+					snake.x = 160;
+					snake.y = 160;
 					snake.cells = [];
 					snake.maxCells = 4;
 					snake.dx = grid;
 					snake.dy = 0;
-					apple.x = getRandomInt(0, 25) * grid;
-					apple.y = getRandomInt(0, 25) * grid;
+					apple.x = getRandomInt(0, w) * grid;
+					apple.y = getRandomInt(0, h) * grid;
+					apple1.x = getRandomInt(0, w) * grid;
+					apple1.y = getRandomInt(0, h) * grid;
 				}
 			}
 		});
@@ -140,13 +186,16 @@ function Snake() {
 
 	return (
 		<>
-		<div className='snake_game'>	
-			<h1>Your Score is {score}</h1>
-			<canvas width="400" height="400" id="game"></canvas>
-		</div>
-			<div className='ComingSoon link' >
-			<a href='/'>Home|</a>
-		</div>
+			<div className='snakeBg'>
+				<div className='snake_game'>
+					<canvas id="game"></canvas>
+					{/* <h1>Your Score is {score}</h1> */}
+				</div>
+				{/* <div className='ComingSoon link' >
+					<a href='/'>Home|</a>
+				</div> */}
+			</div>
+
 		</>
 	);
 }

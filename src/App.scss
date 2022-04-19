@@ -8,6 +8,21 @@ body {
   flex-direction: column;
 }
 
+#root{
+  height: 100%;
+  width: 100%;
+}
+.snakeBg{
+  // height: 100vh;
+  // width: 100%;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  background: rgb(15, 2, 2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
 .snake_game {
 
   h1 {
@@ -16,7 +31,7 @@ body {
   }
 
   canvas {
-    border: 1px solid white;
+    // border: 1px solid black;
   }
 
 }
