@@ -139,10 +139,15 @@ function Snake() {
 	}
 
 	return (
+		<>
 		<div className='snake_game'>	
 			<h1>Your Score is {score}</h1>
 			<canvas width="400" height="400" id="game"></canvas>
 		</div>
+			<div className='ComingSoon link' >
+			<a href='/'>Home|</a>
+		</div>
+		</>
 	);
 }
 

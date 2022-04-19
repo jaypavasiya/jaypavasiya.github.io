@@ -38,6 +38,17 @@ body {
     animation: 1.5s infinite normal cursor;
   }
 
+  &.link {
+    top: auto;
+    position: unset;
+    margin-top: 20px;
+   
+    a{
+      color: #5dea62;
+      text-decoration: none;
+      font-style: italic;
+    }
+  }
 }
 
 

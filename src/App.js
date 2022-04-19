@@ -1,16 +1,15 @@
 import './App.scss';
 
 import {
-    BrowserRouter,
+    HashRouter,
 } from "react-router-dom";
-import Router from './Router';
+import Routers from './Router';
 
 function App() {
     return (
-        <BrowserRouter>
-                <Router />
-        </BrowserRouter>
-
+        <HashRouter hashType='noslash'>
+            <Routers />
+        </HashRouter>
     );
 }
 
