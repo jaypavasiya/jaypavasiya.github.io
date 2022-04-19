@@ -1,0 +1,82 @@
+@charset "UTF-8";
+
+body {
+  background: black;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.snake_game {
+
+  h1 {
+    color: white;
+    // font-size: 50px;
+  }
+
+  canvas {
+    border: 1px solid white;
+  }
+
+}
+
+.ComingSoon {
+  color: white;
+  font-size: 50px;
+  color: #5dea62;
+  font-family: Monaco, monospace;
+  font-size: 24px;
+  width: 100%;
+  text-align: center;
+  position: absolute;
+  top: 45%;
+  left: 0;
+  animation: 120ms infinite normal glitch;
+
+  span {
+    animation: 1.5s infinite normal cursor;
+  }
+
+}
+
+
+::-moz-selection {
+  background: #7021d2;
+  color: #fff;
+}
+
+::selection {
+  background: #7021d2;
+  color: #fff;
+}
+
+@keyframes glitch {
+  0% {
+    opacity: 0;
+    left: 0;
+  }
+
+  40%,
+  80% {
+    opacity: 1;
+    left: -2px;
+  }
+}
+
+@keyframes cursor {
+  0% {
+    opacity: 0;
+    left: 0;
+  }
+
+  40% {
+    opacity: 0;
+    left: -2px;
+  }
+
+  80% {
+    opacity: 1;
+    left: -2px;
+  }
+}
