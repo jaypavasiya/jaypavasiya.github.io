@@ -125,7 +125,11 @@ function Snake() {
 		// print game score
 		setScore(snake.cells.length - 4);
 		context.font = "20px Arial";
-		context.fillText(`Score - ${snake.cells.length}`,10,50);
+		context.fillStyle = '#5dea62';
+		context.fillText(`Score - ${snake.cells.length}`,0,20);
+		context.font = "15px Arial";
+		context.fillStyle = 'white';
+		context.fillText('White apples make you wild',0,40);
 		// draw snake one cell at a time
 		context.fillStyle = '#5dea62';
 		snake.cells.forEach(function (cell, index) {
