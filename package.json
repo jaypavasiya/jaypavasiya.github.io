@@ -21,6 +21,19 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jaypavasiya/jaypavasiya.github.io"
+  },
+  "license": "MIT",
+  "author": {
+    "name": "Jay Pavasiya",
+    "email": "jaypavasiya7@gmail.com",
+    "url": "https://jaypavasiya.github.io"
+  },
+  "bugs": {
+    "url": "https://github.com/jaypavasiya/jaypavasiya.github.io/issues"
+  },
   "eslintConfig": {
     "extends": [
       "react-app",
