@@ -3,6 +3,7 @@ import {
     Route, Switch
 } from "react-router-dom";
 import Home from './Page/Home.js';
+import Profile from './Page/Profile.js';
 import Snake from './Page/Snake.js';
 function Routers() {
     return (
@@ -11,7 +12,8 @@ function Routers() {
             <Switch>
                 {/* <Suspense fallback={<Loader />} > */}
                 {/* <PrivateRoutes exact path='/' component={LoginDemo}></PrivateRoutes> */}
-                <Route exact path='/' render={(props) => <Home {...props} />}></Route>
+                <Route exact path='/' render={(props) => <Profile {...props} />}></Route>
+                <Route exact path='/coming-soon' render={(props) => <Home {...props} />}></Route>
                 <Route exact path='/snake-game' render={(props) => <Snake {...props} />}></Route>
                 {/* </Suspense> */}
             </Switch>
