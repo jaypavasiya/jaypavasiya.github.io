@@ -1,7 +1,11 @@
 @charset "UTF-8";
+@import './scss/variables';
+@import './scss/mixins';
+@import './scss/profile';
+
 
 body {
-  background: black;
+  background: $primaryDark;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -26,7 +30,7 @@ body {
 .snake_game {
 
   h1 {
-    color: white;
+    color: $white;
     // font-size: 50px;
   }
 
@@ -37,9 +41,9 @@ body {
 }
 
 .ComingSoon {
-  color: white;
+  color: $white;
   font-size: 50px;
-  color: #5dea62;
+  color: $green;
   font-family: Monaco, monospace;
   font-size: 24px;
   width: 100%;
@@ -59,7 +63,7 @@ body {
     margin-top: 20px;
    
     a{
-      color: #5dea62;
+      color: $green;
       text-decoration: none;
       font-style: italic;
     }
@@ -68,13 +72,13 @@ body {
 
 
 ::-moz-selection {
-  background: #7021d2;
-  color: #fff;
+  background: $pink;
+  color: $white;
 }
 
 ::selection {
-  background: #7021d2;
-  color: #fff;
+  background:  $pink;
+  color: $white;
 }
 
 @keyframes glitch {
