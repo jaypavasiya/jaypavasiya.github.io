@@ -1,6 +1,13 @@
+.header{
+    height: 100vh;
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+}
+
 .top_Section {
     z-index: 9;
-    height: 100vh;
+    height: 100%;
     width: 100%;
     @include flex-center();
     flex-direction: column;
@@ -41,7 +48,7 @@
 
 
 // best in chrome
-$total: 500; // total particles
+$total: 300; // total particles
 $orb-size: 300px;
 $particle-size: 2px;
 $time: 14s;

@@ -1,10 +1,11 @@
 import React from 'react'
 
 const Profile = () => {
-  const arr = new Array(500).fill(0)
+  const arr = new Array(300).fill(0)
   console.log(arr);
   return (
     <>
+    <div className='header'>
       <div className='top_Section'>
         <div>
           <div className='title'>
@@ -26,7 +27,10 @@ const Profile = () => {
 
         </div>
       </div>
-
+    </div>
+    {/* <div>
+      <h1>dfjksdg</h1>
+    </div> */}
     </>
   )
 }
