@@ -33,7 +33,6 @@ const Profile = () => {
               /> */}
               {/**
                * https://www.geeksforgeeks.org/how-to-create-typewriter-effect-in-reactjs/
-               * detail
                */}
               <p>Developer</p>
             </div>
