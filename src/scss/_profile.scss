@@ -18,7 +18,7 @@
     background-size: $dot-space $dot-space;
 
     .title {
-        background-color: #e9e41d;
+        background-color: $yellow;
         height: 60px;
         @include flex-center();
         padding: 0 3px;
@@ -30,6 +30,7 @@
             font-size: 65px;
             font-family: 'Bungee', cursive;
             line-height: 0;
+            user-select: none;
             // font-family: 'Exo 2', sans-serif;
         }
     }
@@ -51,7 +52,7 @@
 $total: 300; // total particles
 $orb-size: 300px;
 $particle-size: 2px;
-$time: 14s;
+$time: 7s;
 $base-hue: 0; // change for diff colors (180 is nice)
 
 // html, body {

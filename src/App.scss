@@ -75,13 +75,13 @@ body {
 
 
 ::-moz-selection {
-  background: $pink;
-  color: $white;
+  background: $yellow;
+  color: $primaryDark;
 }
 
 ::selection {
-  background:  $pink;
-  color: $white;
+  background:  $yellow;
+  color: $primaryDark;
 }
 
 @keyframes glitch {
