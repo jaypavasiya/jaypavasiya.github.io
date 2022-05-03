@@ -2,15 +2,18 @@
 @import './scss/variables';
 @import './scss/mixins';
 @import './scss/profile';
+@import './scss/base';
 
 
 body {
   background: $primaryDark;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
+  // display: flex;
+  // align-items: center;
+  // justify-content: center;
+  // flex-direction: column;
 }
+
+
 
 #root{
   height: 100%;
