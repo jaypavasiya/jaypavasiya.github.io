@@ -1,5 +1,5 @@
 import React from 'react'
-// import Typewriter from "typewriter-effect";
+import Typewriter from "typewriter-effect";
 
 const Profile = () => {
   const arr = new Array(300).fill(0)
@@ -13,28 +13,26 @@ const Profile = () => {
               <h1>JAY PAVASIYA</h1>
             </div>
             <div className='sub_title'>
-              {/* <Typewriter
+              <Typewriter
 
-                onInit={(typewriter) => {
-
-                  typewriter
-
-                    .typeString("GeeksForGeeks")
-
-                    .pauseFor(1000)
-                    .deleteAll()
-                    .typeString("GeeksForGeeks")
-
-                    .pauseFor(1000)
-                    .deleteAll()
-                    .typeString("Welcomes You")
-                    .start();
+                // onInit={(typewriter) => {
+                //   typewriter
+                //     .typeString("Developer")
+                //     .pauseFor(1000)
+                //     .deleteAll()
+                //     .typeString("Font-End Developer")
+                //     .pauseFor(1000)
+                //     .deleteAll()
+                //     .typeString("Full Stack Developer")
+                //     .start();
+                // }}
+                options={{
+                  strings: ['Developer', 'Font-End Developer', 'JavaScript | React | Angular | NodeJS ', 'HTML | CSS | SASS | Bootstrap', 'Git | Github | Gitlab'],
+                  autoStart: true,
+                  delay: 100,
+                  loop: true,
                 }}
-              /> */}
-              {/**
-               * https://www.geeksforgeeks.org/how-to-create-typewriter-effect-in-reactjs/
-               */}
-              <p>Developer</p>
+              />
             </div>
           </div>
         </div>
