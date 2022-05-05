@@ -15,7 +15,7 @@ const Profile = () => {
             <div className='sub_title'>
               <Typewriter
                 options={{
-                  strings: ['Font-End Developer', 'JavaScript | React | Angular | NodeJS ', 'HTML | CSS | SASS | Bootstrap', 'Git | Github | Gitlab'],
+                  strings: ['Front-End Developer', 'JavaScript | React | Angular | NodeJS ', 'HTML | CSS | SASS | Bootstrap', 'Git | Github | Gitlab'],
                   autoStart: true,
                   delay: 100,
                   loop: true,
