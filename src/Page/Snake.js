@@ -33,7 +33,7 @@ function Snake() {
 	var canvas
 	var context
 	// var score = 0;
-	const [score, setScore] = useState(0)
+	const [, setScore] = useState(0)
 	// canvas = document.getElementById('game');
 	// context = canvas?.getContext('2d');
 	useEffect(() => {

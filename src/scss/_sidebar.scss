@@ -1,0 +1,70 @@
+.sidebar {
+    background-color: $primaryLight;
+    position: fixed;
+    z-index: 99;
+    height: 100%;
+    width: 120px;
+    top: 0;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    .logo {
+        color: $yellow;
+        font-size: 35px;
+        font-family: 'Exo 2', sans-serif;
+        height: 150px;
+        background-color: $primaryDark;
+
+    }
+
+    .menus {
+        @include flex-center();
+        flex-direction: column;
+
+        ul {
+            list-style: none;
+            font-size: 16px;
+            padding: 0;
+            margin: 0;
+
+            li {
+                padding: 15px 0;
+                cursor: pointer;
+                transition: all 0.3s;
+
+                a {
+                    color: $secondaryWhite;
+                    text-decoration: none;
+                }
+
+                &:hover {
+                    a {
+                        color: $yellow;
+                    }
+                }
+            }
+        }
+    }
+
+    .social {
+        @include flex-center();
+        flex-wrap: wrap;
+        height: 250px;
+        align-items: baseline;
+        // background-color: $primaryDark;
+        span{
+            padding: 5px;
+            a{
+                color: $dot-color;
+                font-size: 20px;
+                text-decoration: none; 
+                transition: all 0.3s;
+                &:hover{
+                    color: $yellow;
+                }
+            }
+        }
+    }
+}
