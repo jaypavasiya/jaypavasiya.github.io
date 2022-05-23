@@ -6,7 +6,7 @@ const Sidebar = () => {
             <div className='logo'></div>
             <div className='menus'>
                 <ul>
-                    <li>
+                    {/* <li>
                         <a href='/'>About</a>
                     </li>
                     <li>
@@ -20,7 +20,7 @@ const Sidebar = () => {
                     </li>
                     <li>
                         <a href='/'>Contact</a>
-                    </li>
+                    </li> */}
 
                 </ul>
 
