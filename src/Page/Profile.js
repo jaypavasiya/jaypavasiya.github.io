@@ -6,7 +6,7 @@ const Profile = () => {
   console.log(arr);
   return (
     <>
-      <div className='header'>
+      <div className='home_section'>
         <div className='top_Section'>
           <div>
             <div className='title'>
@@ -14,20 +14,8 @@ const Profile = () => {
             </div>
             <div className='sub_title'>
               <Typewriter
-
-                // onInit={(typewriter) => {
-                //   typewriter
-                //     .typeString("Developer")
-                //     .pauseFor(1000)
-                //     .deleteAll()
-                //     .typeString("Font-End Developer")
-                //     .pauseFor(1000)
-                //     .deleteAll()
-                //     .typeString("Full Stack Developer")
-                //     .start();
-                // }}
                 options={{
-                  strings: ['Developer', 'Font-End Developer', 'JavaScript | React | Angular | NodeJS ', 'HTML | CSS | SASS | Bootstrap', 'Git | Github | Gitlab'],
+                  strings: ['Front-End Developer', 'JavaScript | React | Angular | NodeJS ', 'HTML | CSS | SASS | Bootstrap', 'Git | Github | Gitlab'],
                   autoStart: true,
                   delay: 100,
                   loop: true,
@@ -48,9 +36,6 @@ const Profile = () => {
           </div>
         </div>
       </div>
-      {/* <div>
-      <h1>dfjksdg</h1>
-    </div> */}
     </>
   )
 }

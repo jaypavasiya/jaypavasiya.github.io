@@ -1,52 +1,52 @@
-.header{
+.home_section {
     height: 100vh;
     width: 100%;
     overflow: hidden;
     position: relative;
-}
 
-.top_Section {
-    z-index: 9;
-    height: 100%;
-    width: 100%;
-    @include flex-center();
-    flex-direction: column;
-    background:
-        linear-gradient(90deg, $bg-color ($dot-space - $dot-size), transparent 1%) center,
-        linear-gradient($bg-color ($dot-space - $dot-size), transparent 1%) center,
-        $dot-color;
-    background-size: $dot-space $dot-space;
-
-    .title {
-        background-color: $yellow;
-        height: 60px;
+    .top_Section {
+        z-index: 9;
+        height: 100%;
+        width: 100%;
         @include flex-center();
-        padding: 0 3px;
-        border-radius: 2px;
+        flex-direction: column;
+        background:
+            linear-gradient(90deg, $bg-color ($dot-space - $dot-size), transparent 1%) center,
+            linear-gradient($bg-color ($dot-space - $dot-size), transparent 1%) center,
+            $dot-color;
+        background-size: $dot-space $dot-space;
 
-        h1 {
-            margin: 0;
-            color: $bg-color;
-            font-size: 65px;
-            font-family: 'Bungee', cursive;
-            line-height: 0;
-            user-select: none;
-            // font-family: 'Exo 2', sans-serif;
+        .title {
+            background-color: $yellow;
+            height: 60px;
+            @include flex-center();
+            padding: 0 3px;
+            border-radius: 2px;
+
+            h1 {
+                margin: 0;
+                color: $bg-color;
+                font-size: 65px;
+                font-family: $bold-font;
+                line-height: 0;
+                user-select: none;
+                // font-family: 'Exo 2', sans-serif;
+            }
         }
-    }
 
-    .sub_title {
-        p, span {
-            color: $secondaryWhite;
-            font-size: 20px;
-            font-weight: 300;
-            margin: 0;
-            line-height: 1.5;
+        .sub_title {
+
+            p,
+            span {
+                color: $secondaryWhite;
+                font-size: 20px;
+                font-weight: 300;
+                margin: 0;
+                line-height: 1.5;
+            }
         }
     }
 }
-
-
 
 // best in chrome
 $total: 300; // total particles
@@ -54,15 +54,6 @@ $orb-size: 300px;
 $particle-size: 2px;
 $time: 7s;
 $base-hue: 0; // change for diff colors (180 is nice)
-
-// html, body {
-//   height: 100%;
-// }
-
-// body {
-//   background: black;
-//   overflow: hidden; // no scrollbars.. 
-// }
 
 .wrap {
     position: absolute;
