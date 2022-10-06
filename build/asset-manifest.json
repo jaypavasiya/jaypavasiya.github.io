@@ -1,0 +1,42 @@
+{
+  "files": {
+    "main.css": "/static/css/main.3208b9a0.css",
+    "main.js": "/static/js/main.b93bc679.js",
+    "static/js/903.181a7688.chunk.js": "/static/js/903.181a7688.chunk.js",
+    "static/js/822.5a7f2652.chunk.js": "/static/js/822.5a7f2652.chunk.js",
+    "static/js/691.8c501e71.chunk.js": "/static/js/691.8c501e71.chunk.js",
+    "static/js/257.bc64b6d0.chunk.js": "/static/js/257.bc64b6d0.chunk.js",
+    "static/js/458.a8315a3e.chunk.js": "/static/js/458.a8315a3e.chunk.js",
+    "static/js/178.f8daf318.chunk.js": "/static/js/178.f8daf318.chunk.js",
+    "static/js/135.846c83ec.chunk.js": "/static/js/135.846c83ec.chunk.js",
+    "static/js/348.735f3dbc.chunk.js": "/static/js/348.735f3dbc.chunk.js",
+    "static/js/15.0d7bbc4d.chunk.js": "/static/js/15.0d7bbc4d.chunk.js",
+    "static/js/512.c754104f.chunk.js": "/static/js/512.c754104f.chunk.js",
+    "static/js/966.69bfe997.chunk.js": "/static/js/966.69bfe997.chunk.js",
+    "static/js/678.812ef0a1.chunk.js": "/static/js/678.812ef0a1.chunk.js",
+    "static/js/904.f80b38cc.chunk.js": "/static/js/904.f80b38cc.chunk.js",
+    "static/js/701.68010b06.chunk.js": "/static/js/701.68010b06.chunk.js",
+    "static/js/27.262d8d9e.chunk.js": "/static/js/27.262d8d9e.chunk.js",
+    "static/js/378.7bd2be7b.chunk.js": "/static/js/378.7bd2be7b.chunk.js",
+    "static/js/816.1b15389a.chunk.js": "/static/js/816.1b15389a.chunk.js",
+    "static/js/377.ac14a5e4.chunk.js": "/static/js/377.ac14a5e4.chunk.js",
+    "static/js/367.55349e5b.chunk.js": "/static/js/367.55349e5b.chunk.js",
+    "static/media/login.png": "/static/media/login.d52402e4748fdad54b94.png",
+    "static/media/login-bg.jfif": "/static/media/login-bg.0c28dfa2cb98ab37e537.jfif",
+    "static/media/all-icon.png": "/static/media/all-icon.e0d54d4f74f7e4712c8f.png",
+    "static/media/skype.svg": "/static/media/skype.a0babb319294d75f1f2e04849e75ef8f.svg",
+    "static/media/whatsapp.svg": "/static/media/whatsapp.563dcfc9ff1693e35c3333fa5d5ce9e6.svg",
+    "static/media/instagram.svg": "/static/media/instagram.4862d1d8d7a82bc973e82f24285db2dd.svg",
+    "index.html": "/index.html",
+    "static/media/right-arrow2.svg": "/static/media/right-arrow2.0b22ffd806d6090d1290.svg",
+    "static/media/telegram.svg": "/static/media/telegram.a933a0bef11992be53f15eb7affcc657.svg",
+    "static/media/mail.svg": "/static/media/mail.e55a224a7bfae2cf47ca6f97d7fe8757.svg",
+    "static/media/close.svg": "/static/media/close.0865c0538b2123160c4a.svg",
+    "static/media/gray_round.svg": "/static/media/gray_round.92ecaf71710582a68b56.svg",
+    "static/media/white_round.svg": "/static/media/white_round.215f8ced19c13e0059ee.svg"
+  },
+  "entrypoints": [
+    "static/css/main.3208b9a0.css",
+    "static/js/main.b93bc679.js"
+  ]
+}
