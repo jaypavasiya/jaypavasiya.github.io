@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#0a0a0b" />
+    <meta name="description" content="Jay Pavasiya - Senior Frontend Engineer, Creative Developer & UI/UX Designer crafting exceptional digital experiences" />
+
+    <!-- Preconnect to external resources -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://jaypavasiya.dev/" />
+    <meta property="og:title" content="Jay Pavasiya - Senior Frontend Engineer" />
+    <meta property="og:description" content="Senior Frontend Engineer, Creative Developer & UI/UX Designer crafting exceptional digital experiences with React, TypeScript, and modern web technologies." />
+    <meta property="og:image" content="https://jaypavasiya.dev/og-image.png" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content="https://jaypavasiya.dev/" />
+    <meta name="twitter:title" content="Jay Pavasiya - Senior Frontend Engineer" />
+    <meta name="twitter:description" content="Senior Frontend Engineer, Creative Developer & UI/UX Designer crafting exceptional digital experiences." />
+    <meta name="twitter:image" content="https://jaypavasiya.dev/og-image.png" />
+
+    <!-- Keywords -->
+    <meta name="keywords" content="Jay Pavasiya, Frontend Developer, React Developer, UI/UX Designer, Creative Developer, Web Developer, JavaScript, TypeScript, Portfolio" />
+
+    <!-- Robots -->
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://jaypavasiya.dev/" />
+
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Jay Pavasiya",
+      "jobTitle": "Senior Frontend Engineer",
+      "description": "Senior Frontend Engineer, Creative Developer & UI/UX Designer",
+      "url": "https://jaypavasiya.dev",
+      "sameAs": [
+        "https://github.com/jaypavasiya",
+        "https://www.linkedin.com/in/jaypavasiya",
+        "https://twitter.com/jay_pavasiya"
+      ],
+      "knowsAbout": ["React", "TypeScript", "JavaScript", "Node.js", "UI/UX Design", "Web Development", "Three.js", "GSAP"],
+      "address": {
+        "@type": "PostalAddress",
+        "addressRegion": "Gujarat",
+        "addressCountry": "India"
+      }
+    }
+    </script>
+
+    <title>Jay Pavasiya | Senior Frontend Engineer</title>
+
+    <style>
+      /* Critical CSS for loading state */
+      html {
+        background-color: #0a0a0b;
+      }
+      body {
+        margin: 0;
+        padding: 0;
+        background-color: #0a0a0b;
+        font-family: 'Inter', system-ui, sans-serif;
+      }
+      #root {
+        min-height: 100vh;
+      }
+      .initial-loader {
+        position: fixed;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: #0a0a0b;
+        z-index: 9999;
+      }
+      .loader-content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+      }
+      .loader-logo {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: #ffffff;
+        letter-spacing: -0.02em;
+      }
+      .loader-bar {
+        width: 120px;
+        height: 2px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 2px;
+        overflow: hidden;
+      }
+      .loader-progress {
+        height: 100%;
+        background: linear-gradient(90deg, #6366f1, #818cf8);
+        animation: loading 1.5s ease-in-out infinite;
+      }
+      @keyframes loading {
+        0% { width: 0%; transform: translateX(0); }
+        50% { width: 100%; transform: translateX(0); }
+        100% { width: 100%; transform: translateX(100%); }
+      }
+    </style>
+  </head>
+  <body class="bg-[#0a0a0b] text-white antialiased">
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div id="root">
+      <div class="initial-loader">
+        <div class="loader-content">
+          <span class="loader-logo">JP</span>
+          <div class="loader-bar">
+            <div class="loader-progress"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
