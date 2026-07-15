@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react'
 import { motion, useScroll, useTransform, useInView } from 'framer-motion'
-import { Mail, Github, Linkedin, Twitter, MapPin, Send, CheckCircle, Loader2 } from 'lucide-react'
+import { Mail, Github, Linkedin, Twitter, MapPin, Send, CheckCircle, Loader2, ArrowUpRight } from 'lucide-react'
 
 const Contact = () => {
   const containerRef = useRef()
@@ -33,7 +33,6 @@ const Contact = () => {
     setSubmitted(true)
     setFormState({ name: '', email: '', subject: '', message: '' })
     
-    // Reset success message after 5 seconds
     setTimeout(() => setSubmitted(false), 5000)
   }
 
@@ -50,24 +49,28 @@ const Contact = () => {
       label: 'GitHub',
       href: 'https://github.com/jaypavasiya',
       description: '@jaypavasiya',
+      stats: '23 repos',
     },
     {
       icon: Linkedin,
       label: 'LinkedIn',
       href: 'https://www.linkedin.com/in/jaypavasiya',
-      description: 'Connect with me',
+      description: 'Connect',
+      stats: '500+ connections',
     },
     {
       icon: Twitter,
       label: 'Twitter',
       href: 'https://twitter.com/jay_pavasiya',
       description: '@jay_pavasiya',
+      stats: 'Follow',
     },
     {
       icon: Mail,
       label: 'Email',
       href: 'mailto:jaypavasiya7@gmail.com',
-      description: 'jaypavasiya7@gmail.com',
+      description: 'Direct',
+      stats: 'Fast response',
     },
   ]
 
@@ -82,47 +85,50 @@ const Contact = () => {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <span className="text-accent font-mono text-sm tracking-wider uppercase mb-4 block">
+          <span className="inline-block text-accent font-mono text-sm tracking-wider uppercase mb-4">
             Get in Touch
           </span>
-          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight">
+          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight mb-6">
             Let's Work
             <br />
             <span className="text-gradient">Together</span>
           </h2>
-          <p className="mt-6 text-lg text-[var(--color-text-secondary)] max-w-2xl mx-auto">
+          <p className="text-lg text-zinc-400 max-w-2xl mx-auto">
             Have a project in mind or want to discuss opportunities? I'm always open to 
             new challenges and collaborations. Let's create something amazing together.
           </p>
         </motion.div>
 
-        <div className="grid lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
-          {/* Contact Info */}
+        <div className="grid lg:grid-cols-5 gap-12 max-w-6xl mx-auto">
+          {/* Contact Info - Left Column */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="space-y-8"
+            className="lg:col-span-2 space-y-8"
           >
             {/* Location */}
-            <div className="flex items-start gap-4 p-6 rounded-2xl bg-dark-800/50 border border-dark-700">
+            <motion.div
+              whileHover={{ scale: 1.02 }}
+              className="flex items-start gap-4 p-6 rounded-2xl bg-dark-800/50 border border-white/5"
+            >
               <div className="p-3 rounded-xl bg-accent/10 text-accent">
                 <MapPin size={24} />
               </div>
               <div>
                 <h3 className="text-lg font-semibold text-white mb-1">Location</h3>
-                <p className="text-[var(--color-text-secondary)]">Gujarat, India</p>
-                <p className="text-sm text-[var(--color-text-secondary)] mt-1">
+                <p className="text-zinc-400">Gujarat, India</p>
+                <p className="text-sm text-zinc-500 mt-1">
                   Available for remote work worldwide
                 </p>
               </div>
-            </div>
+            </motion.div>
 
             {/* Social Links */}
             <div className="space-y-4">
               <h3 className="text-lg font-semibold text-white">Connect with me</h3>
-              <div className="grid sm:grid-cols-2 gap-4">
+              <div className="space-y-3">
                 {socialLinks.map((social, index) => (
                   <motion.a
                     key={social.label}
@@ -132,44 +138,51 @@ const Contact = () => {
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
-                    transition={{ duration: 0.4, delay: index * 0.1 }}
-                    className="group flex items-center gap-4 p-4 rounded-xl bg-dark-800/50 border border-dark-700 hover:border-accent/50 transition-all duration-300"
+                    whileHover={{ scale: 1.02 }}
+                    transition={{ delay: index * 0.1 }}
+                    className="flex items-center justify-between p-4 rounded-xl bg-dark-800/50 border border-white/5 hover:border-accent/30 transition-all duration-300 group"
                   >
-                    <div className="p-2.5 rounded-lg bg-dark-700 text-zinc-400 group-hover:text-accent group-hover:bg-accent/10 transition-colors">
-                      <social.icon size={20} />
-                    </div>
-                    <div>
-                      <div className="text-sm font-medium text-white">{social.label}</div>
-                      <div className="text-xs text-[var(--color-text-secondary)]">
-                        {social.description}
+                    <div className="flex items-center gap-4">
+                      <div className="p-2.5 rounded-lg bg-white/5 text-zinc-400 group-hover:text-accent group-hover:bg-accent/10 transition-colors">
+                        <social.icon size={20} />
+                      </div>
+                      <div>
+                        <div className="text-sm font-medium text-white">{social.label}</div>
+                        <div className="text-xs text-zinc-500">{social.description}</div>
                       </div>
                     </div>
+                    <ArrowUpRight size={16} className="text-zinc-600 group-hover:text-accent transition-colors" />
                   </motion.a>
                 ))}
               </div>
             </div>
 
             {/* Quick Response */}
-            <div className="p-6 rounded-2xl bg-gradient-to-br from-accent/20 to-accent-light/10 border border-accent/20">
+            <motion.div
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              className="p-6 rounded-2xl bg-gradient-to-br from-accent/10 to-accent-light/5 border border-accent/20"
+            >
               <h3 className="text-lg font-semibold text-white mb-2">Quick Response</h3>
-              <p className="text-[var(--color-text-secondary)] text-sm">
+              <p className="text-sm text-zinc-400">
                 I typically respond within 24 hours. For urgent inquiries, feel free to 
                 reach out directly via email.
               </p>
-            </div>
+            </motion.div>
           </motion.div>
 
-          {/* Contact Form */}
+          {/* Contact Form - Right Column */}
           <motion.div
             ref={formRef}
             initial={{ opacity: 0, x: 30 }}
             animate={isInView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="relative"
+            className="lg:col-span-3"
           >
             <form
               onSubmit={handleSubmit}
-              className="p-8 rounded-3xl bg-dark-800/50 border border-dark-700 space-y-6"
+              className="p-8 rounded-3xl bg-dark-800/50 border border-white/5 space-y-6"
             >
               {/* Name */}
               <div className="space-y-2">
@@ -184,7 +197,7 @@ const Contact = () => {
                   onChange={handleChange}
                   required
                   placeholder="Your name"
-                  className="w-full px-4 py-3 rounded-xl bg-dark-700/50 border border-dark-600 text-white placeholder:text-zinc-500 focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent transition-all"
+                  className="w-full px-4 py-3.5 rounded-xl bg-dark-700/50 border border-white/5 text-white placeholder:text-zinc-500 focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent transition-all"
                 />
               </div>
 
@@ -201,7 +214,7 @@ const Contact = () => {
                   onChange={handleChange}
                   required
                   placeholder="your@email.com"
-                  className="w-full px-4 py-3 rounded-xl bg-dark-700/50 border border-dark-600 text-white placeholder:text-zinc-500 focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent transition-all"
+                  className="w-full px-4 py-3.5 rounded-xl bg-dark-700/50 border border-white/5 text-white placeholder:text-zinc-500 focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent transition-all"
                 />
               </div>
 
@@ -218,7 +231,7 @@ const Contact = () => {
                   onChange={handleChange}
                   required
                   placeholder="What's this about?"
-                  className="w-full px-4 py-3 rounded-xl bg-dark-700/50 border border-dark-600 text-white placeholder:text-zinc-500 focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent transition-all"
+                  className="w-full px-4 py-3.5 rounded-xl bg-dark-700/50 border border-white/5 text-white placeholder:text-zinc-500 focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent transition-all"
                 />
               </div>
 
@@ -235,7 +248,7 @@ const Contact = () => {
                   required
                   rows={5}
                   placeholder="Tell me about your project..."
-                  className="w-full px-4 py-3 rounded-xl bg-dark-700/50 border border-dark-600 text-white placeholder:text-zinc-500 focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent transition-all resize-none"
+                  className="w-full px-4 py-3.5 rounded-xl bg-dark-700/50 border border-white/5 text-white placeholder:text-zinc-500 focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent transition-all resize-none"
                 />
               </div>
 
@@ -243,8 +256,8 @@ const Contact = () => {
               <motion.button
                 type="submit"
                 disabled={isSubmitting || submitted}
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
+                whileHover={{ scale: isSubmitting || submitted ? 1 : 1.02 }}
+                whileTap={{ scale: isSubmitting || submitted ? 1 : 0.98 }}
                 className={`w-full py-4 rounded-xl font-medium flex items-center justify-center gap-2 transition-all duration-300 ${
                   submitted
                     ? 'bg-green-500/20 text-green-400 border border-green-500/30'
@@ -269,9 +282,6 @@ const Contact = () => {
                 )}
               </motion.button>
             </form>
-
-            {/* Form decoration */}
-            <div className="absolute -z-10 inset-0 -translate-x-4 -translate-y-4 rounded-3xl bg-gradient-to-br from-accent/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
           </motion.div>
         </div>
 
@@ -283,16 +293,17 @@ const Contact = () => {
           transition={{ duration: 0.6 }}
           className="mt-20 text-center"
         >
-          <p className="text-[var(--color-text-secondary)] mb-4">
+          <p className="text-zinc-500 mb-4">
             Prefer a more direct approach?
           </p>
-          <a
+          <motion.a
             href="mailto:jaypavasiya7@gmail.com"
-            className="inline-flex items-center gap-2 text-2xl sm:text-3xl font-bold text-white hover:text-accent transition-colors"
+            whileHover={{ scale: 1.02 }}
+            className="inline-flex items-center gap-3 text-2xl sm:text-3xl font-bold text-white hover:text-accent transition-colors"
           >
             jaypavasiya7@gmail.com
-            <Mail size={24} />
-          </a>
+            <Mail size={28} />
+          </motion.a>
         </motion.div>
       </motion.div>
 

@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react'
 import { motion, useScroll, useTransform, useInView } from 'framer-motion'
-import { Code, Layers, Palette, Zap, Globe, Database, Cloud, Terminal, Wrench } from 'lucide-react'
+import { Code, Database, Palette, Wrench, Layers } from 'lucide-react'
 
 const Skills = () => {
   const containerRef = useRef()
@@ -18,54 +18,56 @@ const Skills = () => {
       id: 'frontend',
       label: 'Frontend',
       icon: Code,
+      color: '#61dafb',
       skills: [
-        { name: 'React', level: 95, color: '#61dafb' },
-        { name: 'TypeScript', level: 90, color: '#3178c6' },
-        { name: 'JavaScript', level: 95, color: '#f7df1e' },
-        { name: 'Next.js', level: 85, color: '#ffffff' },
-        { name: 'HTML/CSS', level: 95, color: '#e34c26' },
-        { name: 'Tailwind CSS', level: 92, color: '#38b2ac' },
-        { name: 'GSAP', level: 85, color: '#88ce02' },
-        { name: 'Framer Motion', level: 88, color: '#ff0055' },
+        { name: 'React', level: 95 },
+        { name: 'TypeScript', level: 90 },
+        { name: 'JavaScript', level: 95 },
+        { name: 'Next.js', level: 85 },
+        { name: 'Tailwind CSS', level: 92 },
+        { name: 'GSAP', level: 85 },
       ],
     },
     {
       id: 'backend',
       label: 'Backend',
       icon: Database,
+      color: '#339933',
       skills: [
-        { name: 'Node.js', level: 85, color: '#339933' },
-        { name: 'Express', level: 85, color: '#ffffff' },
-        { name: 'GraphQL', level: 80, color: '#e10098' },
-        { name: 'REST APIs', level: 92, color: '#6ba539' },
-        { name: 'PostgreSQL', level: 75, color: '#336791' },
-        { name: 'MongoDB', level: 78, color: '#47a248' },
+        { name: 'Node.js', level: 85 },
+        { name: 'Express', level: 85 },
+        { name: 'GraphQL', level: 80 },
+        { name: 'REST APIs', level: 92 },
+        { name: 'PostgreSQL', level: 75 },
+        { name: 'MongoDB', level: 78 },
       ],
     },
     {
       id: 'tools',
-      label: 'Tools & DevOps',
+      label: 'Tools',
       icon: Wrench,
+      color: '#f05032',
       skills: [
-        { name: 'Git', level: 92, color: '#f05032' },
-        { name: 'GitHub', level: 95, color: '#181717' },
-        { name: 'Docker', level: 70, color: '#2496ed' },
-        { name: 'AWS', level: 72, color: '#ff9900' },
-        { name: 'Vercel', level: 90, color: '#ffffff' },
-        { name: 'CI/CD', level: 80, color: '#40b5ad' },
+        { name: 'Git', level: 92 },
+        { name: 'GitHub', level: 95 },
+        { name: 'Docker', level: 70 },
+        { name: 'AWS', level: 72 },
+        { name: 'Vercel', level: 90 },
+        { name: 'CI/CD', level: 80 },
       ],
     },
     {
       id: 'design',
-      label: 'Design & UI',
+      label: 'Design',
       icon: Palette,
+      color: '#f24e1e',
       skills: [
-        { name: 'Figma', level: 85, color: '#f24e1e' },
-        { name: 'UI/UX Design', level: 80, color: '#ff61f6' },
-        { name: 'Responsive Design', level: 95, color: '#38bdf8' },
-        { name: 'Animation', level: 88, color: '#a78bfa' },
-        { name: 'Motion Design', level: 82, color: '#fb923c' },
-        { name: 'Accessibility', level: 85, color: '#4ade80' },
+        { name: 'Figma', level: 85 },
+        { name: 'UI/UX', level: 80 },
+        { name: 'Responsive', level: 95 },
+        { name: 'Animation', level: 88 },
+        { name: 'Accessibility', level: 85 },
+        { name: 'Motion', level: 82 },
       ],
     },
   ]
@@ -81,7 +83,7 @@ const Skills = () => {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.05,
+        staggerChildren: 0.03,
       },
     },
   }
@@ -102,14 +104,17 @@ const Skills = () => {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <span className="text-accent font-mono text-sm tracking-wider uppercase mb-4 block">
+          <span className="inline-block text-accent font-mono text-sm tracking-wider uppercase mb-4">
             Tech Stack
           </span>
-          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight">
+          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight mb-6">
             Skills &
             <br />
             <span className="text-gradient">Expertise</span>
           </h2>
+          <p className="text-lg text-zinc-400 max-w-2xl mx-auto">
+            Technologies and tools I use to bring ideas to life
+          </p>
         </motion.div>
 
         {/* Category Filter */}
@@ -117,32 +122,35 @@ const Skills = () => {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.2 }}
           className="flex flex-wrap justify-center gap-3 mb-12"
         >
-          <button
+          <motion.button
             onClick={() => setActiveCategory('all')}
-            className={`px-5 py-2.5 rounded-full text-sm font-medium transition-all duration-300 ${
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className={`px-5 py-2.5 rounded-xl text-sm font-medium transition-all duration-300 ${
               activeCategory === 'all'
                 ? 'bg-accent text-white'
-                : 'bg-dark-800 text-zinc-400 hover:text-white hover:bg-dark-700'
+                : 'bg-dark-800/50 text-zinc-400 hover:text-white hover:bg-dark-700/50 border border-white/5'
             }`}
           >
             All Skills
-          </button>
+          </motion.button>
           {skillCategories.map((cat) => (
-            <button
+            <motion.button
               key={cat.id}
               onClick={() => setActiveCategory(cat.id)}
-              className={`flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-medium transition-all duration-300 ${
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className={`flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-medium transition-all duration-300 ${
                 activeCategory === cat.id
                   ? 'bg-accent text-white'
-                  : 'bg-dark-800 text-zinc-400 hover:text-white hover:bg-dark-700'
+                  : 'bg-dark-800/50 text-zinc-400 hover:text-white hover:bg-dark-700/50 border border-white/5'
               }`}
             >
               <cat.icon size={16} />
               {cat.label}
-            </button>
+            </motion.button>
           ))}
         </motion.div>
 
@@ -152,45 +160,31 @@ const Skills = () => {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
-          className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 mb-20"
+          className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4 mb-20"
         >
           {filteredSkills.map((skill, index) => (
             <motion.div
               key={`${skill.name}-${index}`}
               variants={skillVariants}
-              className="group relative p-6 rounded-2xl bg-dark-800/50 border border-dark-700 hover:border-accent/50 transition-all duration-300 cursor-default"
+              whileHover={{ scale: 1.05, borderColor: 'rgba(99, 102, 241, 0.5)' }}
+              className="group p-5 rounded-2xl bg-dark-800/50 border border-white/5 transition-all duration-300 cursor-default"
             >
-              {/* Skill name */}
               <div className="text-center">
-                <div 
-                  className="w-12 h-12 mx-auto mb-3 rounded-xl flex items-center justify-center text-lg font-bold"
-                  style={{ backgroundColor: `${skill.color}20`, color: skill.color }}
-                >
+                <div className="w-12 h-12 mx-auto mb-3 rounded-xl flex items-center justify-center text-lg font-bold bg-accent/10 text-accent">
                   {skill.name.charAt(0)}
                 </div>
-                <h4 className="font-medium text-white text-sm mb-2">{skill.name}</h4>
+                <h4 className="font-medium text-white text-sm mb-3">{skill.name}</h4>
                 <div className="w-full h-1.5 bg-dark-700 rounded-full overflow-hidden">
                   <motion.div
                     initial={{ width: 0 }}
                     whileInView={{ width: `${skill.level}%` }}
                     viewport={{ once: true }}
-                    transition={{ duration: 1, delay: index * 0.1, ease: 'easeOut' }}
-                    className="h-full rounded-full"
-                    style={{ backgroundColor: skill.color }}
+                    transition={{ duration: 1, delay: index * 0.05, ease: 'easeOut' }}
+                    className="h-full rounded-full bg-gradient-to-r from-accent to-accent-light"
                   />
                 </div>
-                <span className="text-xs text-[var(--color-text-secondary)] mt-1 block">
-                  {skill.level}%
-                </span>
+                <span className="text-xs text-zinc-500 mt-2 block">{skill.level}%</span>
               </div>
-
-              {/* Hover glow effect */}
-              <div
-                className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
-                style={{
-                  background: `radial-gradient(circle at center, ${skill.color}10 0%, transparent 70%)`,
-                }}
-              />
             </motion.div>
           ))}
         </motion.div>
@@ -204,21 +198,24 @@ const Skills = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: catIndex * 0.1 }}
-              className="p-6 rounded-2xl bg-dark-800/30 border border-dark-700"
+              className="p-6 rounded-2xl bg-dark-800/30 border border-white/5"
             >
               <div className="flex items-center gap-3 mb-6">
-                <div className="p-3 rounded-xl bg-accent/10 text-accent">
-                  <category.icon size={24} />
+                <div 
+                  className="p-3 rounded-xl"
+                  style={{ backgroundColor: `${category.color}20` }}
+                >
+                  <category.icon size={24} style={{ color: category.color }} />
                 </div>
                 <h3 className="text-xl font-bold text-white">{category.label}</h3>
               </div>
 
               <div className="space-y-4">
-                {category.skills.slice(0, 5).map((skill, index) => (
+                {category.skills.map((skill, index) => (
                   <div key={index} className="space-y-2">
                     <div className="flex justify-between text-sm">
                       <span className="text-zinc-300">{skill.name}</span>
-                      <span className="text-[var(--color-text-secondary)]">{skill.level}%</span>
+                      <span className="text-zinc-500">{skill.level}%</span>
                     </div>
                     <div className="w-full h-2 bg-dark-700 rounded-full overflow-hidden">
                       <motion.div
@@ -227,7 +224,7 @@ const Skills = () => {
                         viewport={{ once: true }}
                         transition={{ duration: 1, delay: index * 0.1 }}
                         className="h-full rounded-full"
-                        style={{ backgroundColor: skill.color }}
+                        style={{ backgroundColor: category.color }}
                       />
                     </div>
                   </div>
