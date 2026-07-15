@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react'
 import { motion, useScroll, useTransform, useInView } from 'framer-motion'
-import { Code, Database, Palette, Wrench, Layers } from 'lucide-react'
+import { Code, Database, Palette, Wrench, Layers, Server, Cloud, Terminal, Figma, Globe } from 'lucide-react'
 
 const Skills = () => {
   const containerRef = useRef()
@@ -18,7 +18,7 @@ const Skills = () => {
       id: 'frontend',
       label: 'Frontend',
       icon: Code,
-      color: '#61dafb',
+      color: '#6366f1',
       skills: [
         { name: 'React', level: 95 },
         { name: 'TypeScript', level: 90 },
@@ -32,7 +32,7 @@ const Skills = () => {
       id: 'backend',
       label: 'Backend',
       icon: Database,
-      color: '#339933',
+      color: '#10b981',
       skills: [
         { name: 'Node.js', level: 85 },
         { name: 'Express', level: 85 },
@@ -44,23 +44,23 @@ const Skills = () => {
     },
     {
       id: 'tools',
-      label: 'Tools',
-      icon: Wrench,
-      color: '#f05032',
+      label: 'DevOps',
+      icon: Server,
+      color: '#f59e0b',
       skills: [
         { name: 'Git', level: 92 },
-        { name: 'GitHub', level: 95 },
         { name: 'Docker', level: 70 },
         { name: 'AWS', level: 72 },
         { name: 'Vercel', level: 90 },
         { name: 'CI/CD', level: 80 },
+        { name: 'Linux', level: 75 },
       ],
     },
     {
       id: 'design',
       label: 'Design',
       icon: Palette,
-      color: '#f24e1e',
+      color: '#ec4899',
       skills: [
         { name: 'Figma', level: 85 },
         { name: 'UI/UX', level: 80 },
@@ -112,7 +112,7 @@ const Skills = () => {
             <br />
             <span className="text-gradient">Expertise</span>
           </h2>
-          <p className="text-lg text-zinc-400 max-w-2xl mx-auto">
+          <p className="text-lg text-zinc-500 dark:text-zinc-400 max-w-2xl mx-auto">
             Technologies and tools I use to bring ideas to life
           </p>
         </motion.div>
@@ -131,7 +131,7 @@ const Skills = () => {
             className={`px-5 py-2.5 rounded-xl text-sm font-medium transition-all duration-300 ${
               activeCategory === 'all'
                 ? 'bg-accent text-white'
-                : 'bg-dark-800/50 text-zinc-400 hover:text-white hover:bg-dark-700/50 border border-white/5'
+                : 'dark:bg-dark-800/50 dark:text-zinc-400 dark:hover:text-white bg-zinc-100 text-zinc-600 hover:text-zinc-900 border border-zinc-200 dark:border-white/5'
             }`}
           >
             All Skills
@@ -144,9 +144,10 @@ const Skills = () => {
               whileTap={{ scale: 0.95 }}
               className={`flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-medium transition-all duration-300 ${
                 activeCategory === cat.id
-                  ? 'bg-accent text-white'
-                  : 'bg-dark-800/50 text-zinc-400 hover:text-white hover:bg-dark-700/50 border border-white/5'
+                  ? 'text-white'
+                  : 'dark:bg-dark-800/50 dark:text-zinc-400 dark:hover:text-white bg-zinc-100 text-zinc-600 hover:text-zinc-900 border border-zinc-200 dark:border-white/5'
               }`}
+              style={activeCategory === cat.id ? { backgroundColor: cat.color } : {}}
             >
               <cat.icon size={16} />
               {cat.label}
@@ -167,14 +168,14 @@ const Skills = () => {
               key={`${skill.name}-${index}`}
               variants={skillVariants}
               whileHover={{ scale: 1.05, borderColor: 'rgba(99, 102, 241, 0.5)' }}
-              className="group p-5 rounded-2xl bg-dark-800/50 border border-white/5 transition-all duration-300 cursor-default"
+              className="group p-5 rounded-2xl dark:bg-dark-800/50 bg-white border border-zinc-200 dark:border-white/5 transition-all duration-300 cursor-default"
             >
               <div className="text-center">
                 <div className="w-12 h-12 mx-auto mb-3 rounded-xl flex items-center justify-center text-lg font-bold bg-accent/10 text-accent">
                   {skill.name.charAt(0)}
                 </div>
-                <h4 className="font-medium text-white text-sm mb-3">{skill.name}</h4>
-                <div className="w-full h-1.5 bg-dark-700 rounded-full overflow-hidden">
+                <h4 className="font-medium text-zinc-900 dark:text-white text-sm mb-3">{skill.name}</h4>
+                <div className="w-full h-1.5 bg-zinc-200 dark:bg-dark-700 rounded-full overflow-hidden">
                   <motion.div
                     initial={{ width: 0 }}
                     whileInView={{ width: `${skill.level}%` }}
@@ -183,7 +184,7 @@ const Skills = () => {
                     className="h-full rounded-full bg-gradient-to-r from-accent to-accent-light"
                   />
                 </div>
-                <span className="text-xs text-zinc-500 mt-2 block">{skill.level}%</span>
+                <span className="text-xs text-zinc-500 dark:text-zinc-500 mt-2 block">{skill.level}%</span>
               </div>
             </motion.div>
           ))}
@@ -198,7 +199,7 @@ const Skills = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: catIndex * 0.1 }}
-              className="p-6 rounded-2xl bg-dark-800/30 border border-white/5"
+              className="p-6 rounded-2xl dark:bg-dark-800/30 bg-zinc-50 border border-zinc-200 dark:border-white/5"
             >
               <div className="flex items-center gap-3 mb-6">
                 <div 
@@ -207,17 +208,17 @@ const Skills = () => {
                 >
                   <category.icon size={24} style={{ color: category.color }} />
                 </div>
-                <h3 className="text-xl font-bold text-white">{category.label}</h3>
+                <h3 className="text-xl font-bold text-zinc-900 dark:text-white">{category.label}</h3>
               </div>
 
               <div className="space-y-4">
                 {category.skills.map((skill, index) => (
                   <div key={index} className="space-y-2">
                     <div className="flex justify-between text-sm">
-                      <span className="text-zinc-300">{skill.name}</span>
-                      <span className="text-zinc-500">{skill.level}%</span>
+                      <span className="text-zinc-700 dark:text-zinc-300">{skill.name}</span>
+                      <span className="text-zinc-500 dark:text-zinc-500">{skill.level}%</span>
                     </div>
-                    <div className="w-full h-2 bg-dark-700 rounded-full overflow-hidden">
+                    <div className="w-full h-2 bg-zinc-200 dark:bg-dark-700 rounded-full overflow-hidden">
                       <motion.div
                         initial={{ width: 0 }}
                         whileInView={{ width: `${skill.level}%` }}

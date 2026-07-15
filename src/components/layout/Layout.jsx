@@ -28,6 +28,9 @@ const CustomCursor = () => {
   const [isVisible, setIsVisible] = useState(false)
 
   useEffect(() => {
+    // Hide on mobile
+    if (window.innerWidth < 768) return
+
     const cursor = cursorRef.current
     const cursorDot = cursorDotRef.current
     
@@ -37,21 +40,13 @@ const CustomCursor = () => {
     let mouseY = 0
     let cursorX = 0
     let cursorY = 0
-    let dotX = 0
-    let dotY = 0
 
     const animate = () => {
-      // Smooth cursor follow
       cursorX += (mouseX - cursorX) * 0.15
       cursorY += (mouseY - cursorY) * 0.15
-      dotX += (mouseX - dotX) * 0.35
-      dotY += (mouseY - dotY) * 0.35
 
       if (cursor) {
         cursor.style.transform = `translate(${cursorX - 20}px, ${cursorY - 20}px)`
-      }
-      if (cursorDot) {
-        cursorDot.style.transform = `translate(${dotX - 3}px, ${dotY - 3}px)`
       }
 
       requestAnimationFrame(animate)
@@ -109,39 +104,22 @@ const CustomCursor = () => {
       {/* Cursor ring */}
       <div
         ref={cursorRef}
-        className={`fixed top-0 left-0 w-10 h-10 rounded-full border border-accent/50 pointer-events-none z-[9998] transition-opacity duration-300 ${
+        className={`fixed top-0 left-0 w-10 h-10 rounded-full border-2 pointer-events-none z-[9998] transition-all duration-300 hidden md:block ${
           isVisible ? 'opacity-100' : 'opacity-0'
-        } ${isHovering ? 'scale-150 border-accent bg-accent/10' : 'scale-100'}`}
+        } ${
+          isHovering 
+            ? 'w-14 h-14 border-accent bg-accent/10 scale-100' 
+            : 'border-zinc-400 dark:border-accent/50 scale-100'
+        }`}
       />
       {/* Cursor dot */}
       <div
         ref={cursorDotRef}
-        className={`fixed top-0 left-0 w-1.5 h-1.5 rounded-full bg-accent pointer-events-none z-[9999] transition-opacity duration-300 ${
+        className={`fixed top-0 left-0 w-1.5 h-1.5 rounded-full pointer-events-none z-[9999] transition-opacity duration-300 hidden md:block ${
           isVisible ? 'opacity-100' : 'opacity-0'
-        }`}
+        } bg-accent`}
       />
     </>
-  )
-}
-
-// Page transition wrapper
-const PageTransition = ({ children }) => {
-  const variants = {
-    initial: { opacity: 0, y: 20 },
-    enter: { opacity: 1, y: 0 },
-    exit: { opacity: 0, y: -20 },
-  }
-
-  return (
-    <motion.div
-      initial="initial"
-      animate="enter"
-      exit="exit"
-      variants={variants}
-      transition={{ duration: 0.4, ease: [0.215, 0.61, 0.355, 1] }}
-    >
-      {children}
-    </motion.div>
   )
 }
 
@@ -156,7 +134,6 @@ const Layout = ({ children }) => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50)
 
-      // Calculate scroll progress
       const scrollHeight = document.documentElement.scrollHeight - window.innerHeight
       const currentProgress = scrollHeight > 0 ? window.scrollY / scrollHeight : 0
       setScrollProgress(currentProgress)
@@ -171,7 +148,7 @@ const Layout = ({ children }) => {
   }, [location])
 
   return (
-    <div className="min-h-screen bg-[var(--color-bg)] text-[var(--color-text)]">
+    <div className="min-h-screen bg-white dark:bg-dark-900 text-zinc-900 dark:text-white transition-colors duration-300">
       {/* Custom cursor */}
       <CustomCursor />
 
@@ -185,10 +162,10 @@ const Layout = ({ children }) => {
       <motion.header
         initial={{ y: -100, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.6, ease: [0.215, 0.61, 0.355, 1], delay: 0.2 }}
+        transition={{ duration: 0.6, delay: 0.2 }}
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
           isScrolled
-            ? 'py-3 bg-[var(--color-bg)]/80 backdrop-blur-2xl border-b border-white/5'
+            ? 'py-3 bg-white/80 dark:bg-dark-900/80 backdrop-blur-2xl border-b border-zinc-200 dark:border-white/5'
             : 'py-5 bg-transparent'
         }`}
       >
@@ -197,7 +174,7 @@ const Layout = ({ children }) => {
           <Link to="/" className="relative group">
             <motion.span
               whileHover={{ scale: 1.05 }}
-              className="text-xl font-bold tracking-tight text-white"
+              className="text-xl font-bold tracking-tight text-zinc-900 dark:text-white"
             >
               JP
             </motion.span>
@@ -217,8 +194,8 @@ const Layout = ({ children }) => {
                   to={item.path}
                   className={`relative px-4 py-2 text-sm font-medium rounded-lg transition-colors duration-200 ${
                     location.pathname === item.path
-                      ? 'text-white bg-white/5'
-                      : 'text-zinc-400 hover:text-white hover:bg-white/5'
+                      ? 'text-accent bg-accent/10'
+                      : 'text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white hover:bg-zinc-100 dark:hover:bg-white/5'
                   }`}
                 >
                   {item.label}
@@ -241,7 +218,7 @@ const Layout = ({ children }) => {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               onClick={toggleTheme}
-              className="p-2.5 rounded-xl bg-white/5 hover:bg-white/10 border border-white/5 transition-colors"
+              className="p-2.5 rounded-xl bg-zinc-100 dark:bg-white/5 hover:bg-zinc-200 dark:hover:bg-white/10 border border-zinc-200 dark:border-white/5 transition-colors"
               aria-label="Toggle theme"
             >
               <motion.div
@@ -261,7 +238,7 @@ const Layout = ({ children }) => {
             <motion.button
               whileTap={{ scale: 0.95 }}
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="md:hidden p-2.5 rounded-xl bg-white/5 hover:bg-white/10 border border-white/5 transition-colors"
+              className="md:hidden p-2.5 rounded-xl bg-zinc-100 dark:bg-white/5 hover:bg-zinc-200 dark:hover:bg-white/10 border border-zinc-200 dark:border-white/5 transition-colors"
               aria-label="Toggle menu"
             >
               <motion.div
@@ -290,15 +267,15 @@ const Layout = ({ children }) => {
             className="fixed inset-0 z-40 md:hidden"
           >
             <div
-              className="absolute inset-0 bg-dark-900/95 backdrop-blur-xl"
+              className="absolute inset-0 bg-white/95 dark:bg-dark-900/95 backdrop-blur-xl"
               onClick={() => setIsMobileMenuOpen(false)}
             />
             <motion.div
               initial={{ x: '100%' }}
               animate={{ x: 0 }}
               exit={{ x: '100%' }}
-              transition={{ duration: 0.3, ease: [0.215, 0.61, 0.355, 1] }}
-              className="absolute right-0 top-0 bottom-0 w-full max-w-sm bg-dark-800/80 backdrop-blur-xl border-l border-white/5 p-8 pt-24"
+              transition={{ duration: 0.3 }}
+              className="absolute right-0 top-0 bottom-0 w-full max-w-sm bg-white dark:bg-dark-800 border-l border-zinc-200 dark:border-white/5 p-8 pt-24"
             >
               <nav className="flex flex-col gap-2">
                 {navItems.map((item, index) => (
@@ -312,8 +289,8 @@ const Layout = ({ children }) => {
                       to={item.path}
                       className={`block py-4 px-4 text-2xl font-medium rounded-xl transition-colors ${
                         location.pathname === item.path
-                          ? 'text-white bg-accent/10'
-                          : 'text-zinc-400 hover:text-white hover:bg-white/5'
+                          ? 'text-accent bg-accent/10'
+                          : 'text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white hover:bg-zinc-100 dark:hover:bg-white/5'
                       }`}
                     >
                       {item.label}
@@ -327,7 +304,7 @@ const Layout = ({ children }) => {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.3 }}
-                className="flex gap-3 mt-8 pt-8 border-t border-white/5"
+                className="flex gap-3 mt-8 pt-8 border-t border-zinc-200 dark:border-white/5"
               >
                 {socialLinks.map((social) => (
                   <a
@@ -335,7 +312,7 @@ const Layout = ({ children }) => {
                     href={social.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="p-3 rounded-xl bg-white/5 hover:bg-white/10 transition-colors"
+                    className="p-3 rounded-xl bg-zinc-100 dark:bg-white/5 hover:bg-zinc-200 dark:hover:bg-white/10 transition-colors"
                     aria-label={social.label}
                   >
                     <social.icon size={20} />
@@ -347,30 +324,18 @@ const Layout = ({ children }) => {
         )}
       </AnimatePresence>
 
-      {/* Main Content with Page Transition */}
-      <main>
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={location.pathname}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.3, ease: [0.215, 0.61, 0.355, 1] }}
-          >
-            {children}
-          </motion.div>
-        </AnimatePresence>
-      </main>
+      {/* Main Content */}
+      <main>{children}</main>
 
       {/* Footer */}
-      <footer className="border-t border-white/5 py-10 mt-20">
+      <footer className="border-t border-zinc-200 dark:border-white/5 py-10 mt-20">
         <div className="container-custom">
           <div className="flex flex-col md:flex-row items-center justify-between gap-6">
             <motion.p
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
               viewport={{ once: true }}
-              className="text-sm text-zinc-500"
+              className="text-sm text-zinc-500 dark:text-zinc-500"
             >
               &copy; {new Date().getFullYear()} Jay Pavasiya. Crafted with precision.
             </motion.p>
@@ -387,7 +352,7 @@ const Layout = ({ children }) => {
                   href={social.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-zinc-500 hover:text-white transition-colors"
+                  className="text-zinc-400 dark:text-zinc-500 hover:text-zinc-900 dark:hover:text-white transition-colors"
                   aria-label={social.label}
                 >
                   <social.icon size={18} />

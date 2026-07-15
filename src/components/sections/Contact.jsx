@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react'
 import { motion, useScroll, useTransform, useInView } from 'framer-motion'
-import { Mail, Github, Linkedin, Twitter, MapPin, Send, CheckCircle, Loader2, ArrowUpRight } from 'lucide-react'
+import { Mail, Github, Linkedin, Twitter, MapPin, Send, CheckCircle, Loader2, ArrowUpRight, MessageCircle, Clock, Heart } from 'lucide-react'
 
 const Contact = () => {
   const containerRef = useRef()
@@ -93,7 +93,7 @@ const Contact = () => {
             <br />
             <span className="text-gradient">Together</span>
           </h2>
-          <p className="text-lg text-zinc-400 max-w-2xl mx-auto">
+          <p className="text-lg text-zinc-500 dark:text-zinc-400 max-w-2xl mx-auto">
             Have a project in mind or want to discuss opportunities? I'm always open to 
             new challenges and collaborations. Let's create something amazing together.
           </p>
@@ -111,15 +111,15 @@ const Contact = () => {
             {/* Location */}
             <motion.div
               whileHover={{ scale: 1.02 }}
-              className="flex items-start gap-4 p-6 rounded-2xl bg-dark-800/50 border border-white/5"
+              className="flex items-start gap-4 p-6 rounded-2xl dark:bg-dark-800/50 bg-zinc-50 border border-zinc-200 dark:border-white/5"
             >
               <div className="p-3 rounded-xl bg-accent/10 text-accent">
                 <MapPin size={24} />
               </div>
               <div>
-                <h3 className="text-lg font-semibold text-white mb-1">Location</h3>
-                <p className="text-zinc-400">Gujarat, India</p>
-                <p className="text-sm text-zinc-500 mt-1">
+                <h3 className="text-lg font-semibold text-zinc-900 dark:text-white mb-1">Location</h3>
+                <p className="text-zinc-600 dark:text-zinc-400">Gujarat, India</p>
+                <p className="text-sm text-zinc-500 dark:text-zinc-500 mt-1">
                   Available for remote work worldwide
                 </p>
               </div>
@@ -127,7 +127,7 @@ const Contact = () => {
 
             {/* Social Links */}
             <div className="space-y-4">
-              <h3 className="text-lg font-semibold text-white">Connect with me</h3>
+              <h3 className="text-lg font-semibold text-zinc-900 dark:text-white">Connect with me</h3>
               <div className="space-y-3">
                 {socialLinks.map((social, index) => (
                   <motion.a
@@ -140,18 +140,18 @@ const Contact = () => {
                     viewport={{ once: true }}
                     whileHover={{ scale: 1.02 }}
                     transition={{ delay: index * 0.1 }}
-                    className="flex items-center justify-between p-4 rounded-xl bg-dark-800/50 border border-white/5 hover:border-accent/30 transition-all duration-300 group"
+                    className="flex items-center justify-between p-4 rounded-xl dark:bg-dark-800/50 bg-zinc-50 border border-zinc-200 dark:border-white/5 hover:border-accent/30 transition-all duration-300 group"
                   >
                     <div className="flex items-center gap-4">
-                      <div className="p-2.5 rounded-lg bg-white/5 text-zinc-400 group-hover:text-accent group-hover:bg-accent/10 transition-colors">
+                      <div className="p-2.5 rounded-lg dark:bg-zinc-800 bg-white text-zinc-600 dark:text-zinc-400 group-hover:text-accent group-hover:bg-accent/10 transition-colors">
                         <social.icon size={20} />
                       </div>
                       <div>
-                        <div className="text-sm font-medium text-white">{social.label}</div>
-                        <div className="text-xs text-zinc-500">{social.description}</div>
+                        <div className="text-sm font-medium text-zinc-900 dark:text-white">{social.label}</div>
+                        <div className="text-xs text-zinc-500 dark:text-zinc-500">{social.description}</div>
                       </div>
                     </div>
-                    <ArrowUpRight size={16} className="text-zinc-600 group-hover:text-accent transition-colors" />
+                    <ArrowUpRight size={16} className="text-zinc-400 dark:text-zinc-600 group-hover:text-accent transition-colors" />
                   </motion.a>
                 ))}
               </div>
@@ -162,14 +162,24 @@ const Contact = () => {
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
               viewport={{ once: true }}
-              className="p-6 rounded-2xl bg-gradient-to-br from-accent/10 to-accent-light/5 border border-accent/20"
+              className="p-6 rounded-2xl border bg-gradient-to-br from-accent/10 to-accent-light/5 border-accent/20"
             >
-              <h3 className="text-lg font-semibold text-white mb-2">Quick Response</h3>
-              <p className="text-sm text-zinc-400">
+              <div className="flex items-center gap-3 mb-3">
+                <Clock size={20} className="text-accent" />
+                <h3 className="text-lg font-semibold text-zinc-900 dark:text-white">Quick Response</h3>
+              </div>
+              <p className="text-sm text-zinc-600 dark:text-zinc-400">
                 I typically respond within 24 hours. For urgent inquiries, feel free to 
                 reach out directly via email.
               </p>
             </motion.div>
+
+            {/* Made with love */}
+            <div className="flex items-center justify-center gap-2 text-sm text-zinc-500 dark:text-zinc-500">
+              <span>Made with</span>
+              <Heart size={14} className="text-red-500 animate-pulse" />
+              <span>using React & Tailwind</span>
+            </div>
           </motion.div>
 
           {/* Contact Form - Right Column */}
@@ -182,11 +192,11 @@ const Contact = () => {
           >
             <form
               onSubmit={handleSubmit}
-              className="p-8 rounded-3xl bg-dark-800/50 border border-white/5 space-y-6"
+              className="p-8 rounded-3xl dark:bg-dark-800/50 bg-white border border-zinc-200 dark:border-white/5 space-y-6"
             >
               {/* Name */}
               <div className="space-y-2">
-                <label htmlFor="name" className="text-sm font-medium text-white">
+                <label htmlFor="name" className="text-sm font-medium text-zinc-700 dark:text-zinc-300">
                   Name
                 </label>
                 <input
@@ -197,13 +207,13 @@ const Contact = () => {
                   onChange={handleChange}
                   required
                   placeholder="Your name"
-                  className="w-full px-4 py-3.5 rounded-xl bg-dark-700/50 border border-white/5 text-white placeholder:text-zinc-500 focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent transition-all"
+                  className="w-full px-4 py-3.5 rounded-xl dark:bg-dark-700/50 bg-zinc-100 border border-zinc-200 dark:border-white/5 text-zinc-900 dark:text-white placeholder:text-zinc-500 focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent transition-all"
                 />
               </div>
 
               {/* Email */}
               <div className="space-y-2">
-                <label htmlFor="email" className="text-sm font-medium text-white">
+                <label htmlFor="email" className="text-sm font-medium text-zinc-700 dark:text-zinc-300">
                   Email
                 </label>
                 <input
@@ -214,13 +224,13 @@ const Contact = () => {
                   onChange={handleChange}
                   required
                   placeholder="your@email.com"
-                  className="w-full px-4 py-3.5 rounded-xl bg-dark-700/50 border border-white/5 text-white placeholder:text-zinc-500 focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent transition-all"
+                  className="w-full px-4 py-3.5 rounded-xl dark:bg-dark-700/50 bg-zinc-100 border border-zinc-200 dark:border-white/5 text-zinc-900 dark:text-white placeholder:text-zinc-500 focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent transition-all"
                 />
               </div>
 
               {/* Subject */}
               <div className="space-y-2">
-                <label htmlFor="subject" className="text-sm font-medium text-white">
+                <label htmlFor="subject" className="text-sm font-medium text-zinc-700 dark:text-zinc-300">
                   Subject
                 </label>
                 <input
@@ -231,13 +241,13 @@ const Contact = () => {
                   onChange={handleChange}
                   required
                   placeholder="What's this about?"
-                  className="w-full px-4 py-3.5 rounded-xl bg-dark-700/50 border border-white/5 text-white placeholder:text-zinc-500 focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent transition-all"
+                  className="w-full px-4 py-3.5 rounded-xl dark:bg-dark-700/50 bg-zinc-100 border border-zinc-200 dark:border-white/5 text-zinc-900 dark:text-white placeholder:text-zinc-500 focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent transition-all"
                 />
               </div>
 
               {/* Message */}
               <div className="space-y-2">
-                <label htmlFor="message" className="text-sm font-medium text-white">
+                <label htmlFor="message" className="text-sm font-medium text-zinc-700 dark:text-zinc-300">
                   Message
                 </label>
                 <textarea
@@ -248,7 +258,7 @@ const Contact = () => {
                   required
                   rows={5}
                   placeholder="Tell me about your project..."
-                  className="w-full px-4 py-3.5 rounded-xl bg-dark-700/50 border border-white/5 text-white placeholder:text-zinc-500 focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent transition-all resize-none"
+                  className="w-full px-4 py-3.5 rounded-xl dark:bg-dark-700/50 bg-zinc-100 border border-zinc-200 dark:border-white/5 text-zinc-900 dark:text-white placeholder:text-zinc-500 focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent transition-all resize-none"
                 />
               </div>
 
@@ -260,9 +270,9 @@ const Contact = () => {
                 whileTap={{ scale: isSubmitting || submitted ? 1 : 0.98 }}
                 className={`w-full py-4 rounded-xl font-medium flex items-center justify-center gap-2 transition-all duration-300 ${
                   submitted
-                    ? 'bg-green-500/20 text-green-400 border border-green-500/30'
-                    : 'bg-accent hover:bg-accent-dark text-white'
-                } ${isSubmitting ? 'opacity-70 cursor-not-allowed' : ''}`}
+                    ? 'bg-green-500/20 text-green-600 dark:text-green-400 border border-green-500/30'
+                    : 'text-white'
+                } ${isSubmitting ? 'opacity-70 cursor-not-allowed bg-accent' : 'bg-accent hover:bg-accent-dark'}`}
               >
                 {isSubmitting ? (
                   <>
@@ -293,13 +303,13 @@ const Contact = () => {
           transition={{ duration: 0.6 }}
           className="mt-20 text-center"
         >
-          <p className="text-zinc-500 mb-4">
+          <p className="text-zinc-500 dark:text-zinc-500 mb-4">
             Prefer a more direct approach?
           </p>
           <motion.a
             href="mailto:jaypavasiya7@gmail.com"
             whileHover={{ scale: 1.02 }}
-            className="inline-flex items-center gap-3 text-2xl sm:text-3xl font-bold text-white hover:text-accent transition-colors"
+            className="inline-flex items-center gap-3 text-2xl sm:text-3xl font-bold text-zinc-900 dark:text-white hover:text-accent transition-colors"
           >
             jaypavasiya7@gmail.com
             <Mail size={28} />
