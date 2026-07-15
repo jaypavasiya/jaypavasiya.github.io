@@ -1,11 +1,11 @@
 import { useState, useEffect, Suspense, lazy } from 'react'
-import { Routes, Route } from 'react-router-dom'
+import { Routes, Route, useLocation } from 'react-router-dom'
 import { AnimatePresence } from 'framer-motion'
 import Lenis from 'lenis'
 import Layout from './components/layout/Layout'
 import LoadingScreen from './components/ui/LoadingScreen'
 
-// Lazy load pages for better performance
+// Lazy load sections for better performance
 const Home = lazy(() => import('./components/sections/Home'))
 const About = lazy(() => import('./components/sections/About'))
 const Experience = lazy(() => import('./components/sections/Experience'))
@@ -15,6 +15,7 @@ const Contact = lazy(() => import('./components/sections/Contact'))
 
 function App() {
   const [isLoading, setIsLoading] = useState(true)
+  const location = useLocation()
 
   useEffect(() => {
     // Initialize Lenis smooth scroll
@@ -22,6 +23,8 @@ function App() {
       duration: 1.2,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       smoothWheel: true,
+      wheelMultiplier: 1,
+      touchMultiplier: 2,
     })
 
     function raf(time) {
@@ -29,18 +32,24 @@ function App() {
       requestAnimationFrame(raf)
     }
 
-    requestAnimationFrame(raf)
+    const rafId = requestAnimationFrame(raf)
 
-    // Simulate loading for smooth entrance
+    // Simulate loading for smooth entrance experience
     const timer = setTimeout(() => {
       setIsLoading(false)
     }, 2500)
 
     return () => {
       lenis.destroy()
+      cancelAnimationFrame(rafId)
       clearTimeout(timer)
     }
   }, [])
+
+  // Scroll to top on route change
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [location])
 
   return (
     <>
@@ -51,14 +60,16 @@ function App() {
       {!isLoading && (
         <Layout>
           <Suspense fallback={<LoadingScreen />}>
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/about" element={<About />} />
-              <Route path="/experience" element={<Experience />} />
-              <Route path="/skills" element={<Skills />} />
-              <Route path="/projects" element={<Projects />} />
-              <Route path="/contact" element={<Contact />} />
-            </Routes>
+            <AnimatePresence mode="wait">
+              <Routes location={location} key={location.pathname}>
+                <Route path="/" element={<Home />} />
+                <Route path="/about" element={<About />} />
+                <Route path="/experience" element={<Experience />} />
+                <Route path="/skills" element={<Skills />} />
+                <Route path="/projects" element={<Projects />} />
+                <Route path="/contact" element={<Contact />} />
+              </Routes>
+            </AnimatePresence>
           </Suspense>
         </Layout>
       )}

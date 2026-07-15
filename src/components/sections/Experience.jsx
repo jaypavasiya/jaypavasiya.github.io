@@ -79,7 +79,7 @@ const Experience = () => {
   }
 
   const itemVariants = {
-    hidden: { opacity: 0, x: -20 },
+    hidden: { opacity: 0, x: -30 },
     visible: { opacity: 1, x: 0 },
   }
 
@@ -94,7 +94,7 @@ const Experience = () => {
           transition={{ duration: 0.6 }}
           className="text-center mb-20"
         >
-          <span className="text-accent font-mono text-sm tracking-wider uppercase mb-4 block">
+          <span className="inline-block text-accent font-mono text-sm tracking-wider uppercase mb-4">
             Career Path
           </span>
           <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight">
@@ -127,17 +127,24 @@ const Experience = () => {
               >
                 {/* Timeline dot */}
                 <div className="absolute left-0 md:left-1/2 w-4 h-4 rounded-full bg-accent border-4 border-dark-900 transform -translate-x-[6px] md:-translate-x-[8px] mt-6 z-10">
-                  <div className="absolute inset-0 rounded-full bg-accent animate-ping opacity-50" />
+                  <motion.div
+                    animate={{ scale: [1, 1.5, 1], opacity: [1, 0, 1] }}
+                    transition={{ duration: 2, repeat: Infinity }}
+                    className="absolute inset-0 rounded-full bg-accent"
+                  />
                 </div>
 
                 {/* Content */}
                 <div className={`flex-1 ml-8 md:ml-0 ${index % 2 === 0 ? 'md:pr-12' : 'md:pl-12'}`}>
-                  <div className="p-6 rounded-2xl bg-dark-800/50 border border-dark-700 hover:border-accent/50 transition-all duration-300 group">
+                  <motion.div
+                    whileHover={{ scale: 1.01 }}
+                    className="p-6 rounded-2xl bg-dark-800/50 border border-white/5 hover:border-accent/30 transition-all duration-300 group"
+                  >
                     {/* Header */}
                     <div className="flex flex-wrap items-start justify-between gap-4 mb-4">
                       <div>
-                        <div className="flex items-center gap-2 text-accent mb-1">
-                          <Briefcase size={16} />
+                        <div className="flex items-center gap-2 text-accent mb-2">
+                          <Briefcase size={14} />
                           <span className="text-xs font-medium uppercase tracking-wider">
                             {exp.type === 'work' ? 'Work' : 'Education'}
                           </span>
@@ -145,19 +152,19 @@ const Experience = () => {
                         <h3 className="text-xl sm:text-2xl font-bold text-white group-hover:text-accent transition-colors">
                           {exp.title}
                         </h3>
-                        <p className="text-lg text-zinc-400">{exp.company}</p>
+                        <p className="text-zinc-400 mt-1">{exp.company}</p>
                       </div>
                       <a
                         href="#"
-                        className="p-2 rounded-lg bg-dark-700 hover:bg-accent text-zinc-400 hover:text-white transition-all"
-                        aria-label="Visit company website"
+                        className="p-2 rounded-lg bg-white/5 hover:bg-accent/20 text-zinc-500 hover:text-accent transition-all"
+                        aria-label="Visit company"
                       >
                         <ExternalLink size={16} />
                       </a>
                     </div>
 
                     {/* Meta info */}
-                    <div className="flex flex-wrap gap-4 mb-4 text-sm text-[var(--color-text-secondary)]">
+                    <div className="flex flex-wrap gap-4 mb-4 text-sm text-zinc-500">
                       <span className="flex items-center gap-1.5">
                         <Calendar size={14} />
                         {exp.period}
@@ -169,15 +176,15 @@ const Experience = () => {
                     </div>
 
                     {/* Description */}
-                    <p className="text-[var(--color-text-secondary)] mb-4">
+                    <p className="text-zinc-400 mb-4 leading-relaxed">
                       {exp.description}
                     </p>
 
                     {/* Highlights */}
                     <ul className="space-y-2 mb-4">
                       {exp.highlights.map((highlight, i) => (
-                        <li key={i} className="flex items-start gap-2 text-sm text-zinc-400">
-                          <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-accent flex-shrink-0" />
+                        <li key={i} className="flex items-start gap-3 text-sm text-zinc-500">
+                          <span className="mt-2 w-1 h-1 rounded-full bg-accent flex-shrink-0" />
                           {highlight}
                         </li>
                       ))}
@@ -188,13 +195,13 @@ const Experience = () => {
                       {exp.tech.map((tech, i) => (
                         <span
                           key={i}
-                          className="px-3 py-1 text-xs font-medium bg-dark-700 text-zinc-300 rounded-full"
+                          className="px-3 py-1 text-xs font-medium bg-white/5 text-zinc-400 rounded-full"
                         >
                           {tech}
                         </span>
                       ))}
                     </div>
-                  </div>
+                  </motion.div>
                 </div>
 
                 {/* Spacer for alternating layout */}
@@ -221,21 +228,24 @@ const Experience = () => {
               <div className="absolute left-0 md:left-1/2 w-4 h-4 rounded-full bg-accent-light border-4 border-dark-900 transform -translate-x-[6px] md:-translate-x-[8px] mt-6 z-10" />
 
               {education.map((edu, index) => (
-                <div key={index} className={`flex flex-col md:flex-row gap-8`}>
+                <div key={index} className="flex flex-col md:flex-row gap-8">
                   <div className="flex-1 md:pr-12">
-                    <div className="p-6 rounded-2xl bg-dark-800/50 border border-dark-700">
+                    <motion.div
+                      whileHover={{ scale: 1.01 }}
+                      className="p-6 rounded-2xl bg-dark-800/50 border border-white/5"
+                    >
                       <div className="mb-4">
                         <h4 className="text-xl font-bold text-white">{edu.title}</h4>
                         <p className="text-zinc-400">{edu.institution}</p>
                       </div>
-                      <div className="flex items-center gap-4 text-sm text-[var(--color-text-secondary)]">
+                      <div className="flex items-center gap-4 text-sm text-zinc-500 mb-4">
                         <span className="flex items-center gap-1.5">
                           <Calendar size={14} />
                           {edu.period}
                         </span>
                       </div>
-                      <p className="mt-4 text-[var(--color-text-secondary)]">{edu.description}</p>
-                    </div>
+                      <p className="text-zinc-400 leading-relaxed">{edu.description}</p>
+                    </motion.div>
                   </div>
                   <div className="hidden md:block flex-1" />
                 </div>

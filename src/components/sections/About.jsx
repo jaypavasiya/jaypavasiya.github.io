@@ -1,6 +1,6 @@
 import { useRef } from 'react'
 import { motion, useScroll, useTransform, useInView } from 'framer-motion'
-import { Code2, Palette, Zap, Users, Award, Globe } from 'lucide-react'
+import { Code2, Palette, Zap, Users, Award, Globe, ArrowRight } from 'lucide-react'
 
 const About = () => {
   const containerRef = useRef()
@@ -52,13 +52,13 @@ const About = () => {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.1,
+        staggerChildren: 0.08,
       },
     },
   }
 
   const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
+    hidden: { opacity: 0, y: 30 },
     visible: { opacity: 1, y: 0 },
   }
 
@@ -73,18 +73,23 @@ const About = () => {
           transition={{ duration: 0.6 }}
           className="text-center mb-20"
         >
-          <span className="text-accent font-mono text-sm tracking-wider uppercase mb-4 block">
+          <motion.span
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="inline-block text-accent font-mono text-sm tracking-wider uppercase mb-4"
+          >
             About Me
-          </span>
+          </motion.span>
           <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight">
-            Crafting Digital
+            <span className="text-gradient">Crafting</span> Digital
             <br />
-            <span className="text-gradient">Excellence</span>
+            Excellence
           </h2>
         </motion.div>
 
         {/* Main Content */}
-        <div className="grid lg:grid-cols-2 gap-16 items-center">
+        <div className="grid lg:grid-cols-2 gap-16 lg:gap-24 items-center">
           {/* Image/Visual Side */}
           <motion.div
             ref={imageRef}
@@ -94,40 +99,56 @@ const About = () => {
             className="relative"
           >
             <div className="relative aspect-square max-w-md mx-auto">
-              {/* Decorative frame */}
-              <div className="absolute inset-4 border border-accent/30 rounded-3xl" />
-              <div className="absolute inset-0 bg-gradient-to-br from-accent/20 to-transparent rounded-3xl" />
+              {/* Animated border */}
+              <motion.div
+                animate={{ rotate: 360 }}
+                transition={{ duration: 20, repeat: Infinity, ease: 'linear' }}
+                className="absolute inset-0 border border-dashed border-accent/30 rounded-3xl"
+              />
               
-              {/* Profile visual */}
-              <div className="absolute inset-8 bg-dark-800 rounded-2xl overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-br from-accent/10 via-transparent to-accent-dark/10" />
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="text-center">
-                    <div className="text-8xl font-bold text-white/20 mb-2">JP</div>
-                    <div className="text-sm text-zinc-500">Frontend Engineer</div>
-                  </div>
-                </div>
+              {/* Profile card */}
+              <motion.div
+                whileHover={{ scale: 1.02 }}
+                transition={{ duration: 0.3 }}
+                className="absolute inset-4 bg-gradient-to-br from-dark-800 to-dark-900 rounded-2xl overflow-hidden border border-white/5"
+              >
+                <div className="absolute inset-0 bg-gradient-to-br from-accent/5 via-transparent to-accent-light/5" />
                 
+                {/* Avatar placeholder */}
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <motion.div
+                    animate={{ y: [-10, 10, -10] }}
+                    transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
+                    className="text-center"
+                  >
+                    <div className="text-[100px] sm:text-[120px] font-bold text-white/10 mb-2">JP</div>
+                    <div className="px-4 py-1.5 rounded-full bg-accent/20 text-accent text-sm font-medium">
+                      Frontend Engineer
+                    </div>
+                  </motion.div>
+                </div>
+
                 {/* Floating badges */}
                 <motion.div
                   animate={{ y: [-5, 5, -5] }}
                   transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
-                  className="absolute -top-4 -right-4 px-3 py-1.5 bg-accent text-white text-xs font-medium rounded-full"
+                  className="absolute -top-3 -right-3 px-4 py-2 rounded-xl bg-accent text-white text-sm font-semibold shadow-lg shadow-accent/25"
                 >
-                  Open to work
+                  Open to Work
                 </motion.div>
+                
                 <motion.div
                   animate={{ y: [5, -5, 5] }}
-                  transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
-                  className="absolute -bottom-4 -left-4 px-3 py-1.5 bg-dark-700 text-zinc-300 text-xs font-medium rounded-full"
+                  transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut', delay: 0.5 }}
+                  className="absolute -bottom-3 -left-3 px-4 py-2 rounded-xl bg-dark-700 text-zinc-300 text-sm font-medium border border-white/5"
                 >
-                  React Expert
+                  4+ Years Exp
                 </motion.div>
-              </div>
+              </motion.div>
             </div>
 
-            {/* Background decoration */}
-            <div className="absolute -z-10 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-gradient-to-r from-accent/5 via-transparent to-accent-light/5 rounded-full blur-3xl" />
+            {/* Background glow */}
+            <div className="absolute -z-10 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[150%] h-[150%] bg-gradient-radial from-accent/10 via-transparent to-transparent rounded-full blur-3xl" />
           </motion.div>
 
           {/* Text Content */}
@@ -139,23 +160,23 @@ const About = () => {
             className="space-y-8"
           >
             <div className="space-y-6">
-              <h3 className="text-2xl sm:text-3xl font-semibold text-white">
-                Hello! I'm Jay Pavasiya
+              <h3 className="text-2xl sm:text-3xl font-bold text-white">
+                Hello! I'm <span className="text-accent">Jay Pavasiya</span>
               </h3>
-              <p className="text-lg text-[var(--color-text-secondary)] leading-relaxed">
-                I'm a <span className="text-white font-medium">Senior Frontend Engineer</span> based in{' '}
-                <span className="text-white font-medium">Gujarat, India</span>, passionate about 
+              <p className="text-lg text-zinc-400 leading-relaxed">
+                I'm a <span className="text-white font-semibold">Senior Frontend Engineer</span> based in{' '}
+                <span className="text-white font-semibold">Gujarat, India</span>, passionate about 
                 building exceptional digital experiences. With over{' '}
-                <span className="text-accent font-medium">4 years of experience</span>, I specialize 
+                <span className="text-accent font-semibold">4 years of experience</span>, I specialize 
                 in creating performant, accessible, and visually stunning web applications.
               </p>
-              <p className="text-lg text-[var(--color-text-secondary)] leading-relaxed">
+              <p className="text-lg text-zinc-400 leading-relaxed">
                 I have a strong foundation in <span className="text-white font-medium">React</span>,{' '}
                 <span className="text-white font-medium">TypeScript</span>, and{' '}
                 <span className="text-white font-medium">Node.js</span>, with expertise in modern 
                 frontend frameworks, state management, and building scalable architectures.
               </p>
-              <p className="text-lg text-[var(--color-text-secondary)] leading-relaxed">
+              <p className="text-lg text-zinc-400 leading-relaxed">
                 Beyond coding, I'm passionate about <span className="text-white font-medium">open source</span>, 
                 contributing to projects that help developers worldwide, and continuously learning 
                 new technologies to stay at the forefront of web development.
@@ -163,49 +184,83 @@ const About = () => {
             </div>
 
             {/* Quick Facts */}
-            <div className="grid grid-cols-2 gap-4 p-6 rounded-2xl bg-dark-800/50 border border-dark-700">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="grid grid-cols-2 gap-4 p-6 rounded-2xl bg-dark-800/50 border border-white/5"
+            >
               {[
-                { label: 'Location', value: 'Gujarat, India' },
-                { label: 'Experience', value: '4+ Years' },
-                { label: 'Availability', value: 'Open to Work' },
-                { label: 'Remote', value: 'Available' },
+                { label: 'Location', value: 'Gujarat, India', icon: '📍' },
+                { label: 'Experience', value: '4+ Years', icon: '💼' },
+                { label: 'Availability', value: 'Open to Work', icon: '✨' },
+                { label: 'Remote', value: 'Available', icon: '🌍' },
               ].map((fact, index) => (
-                <div key={index} className="space-y-1">
-                  <div className="text-xs text-[var(--color-text-secondary)] uppercase tracking-wider">
-                    {fact.label}
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: 10 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: index * 0.1 }}
+                  className="space-y-1"
+                >
+                  <div className="text-xs text-zinc-500 uppercase tracking-wider">{fact.label}</div>
+                  <div className="text-white font-medium flex items-center gap-2">
+                    <span>{fact.icon}</span>
+                    {fact.value}
                   </div>
-                  <div className="text-white font-medium">{fact.value}</div>
-                </div>
+                </motion.div>
               ))}
-            </div>
+            </motion.div>
 
             {/* Highlights Grid */}
             <motion.div
               variants={containerVariants}
               initial="hidden"
               whileInView="visible"
-              viewport={{ once: true }}
+              viewport={{ once: true, margin: '-50px' }}
               className="grid sm:grid-cols-2 gap-4"
             >
               {highlights.map((item, index) => (
                 <motion.div
                   key={index}
                   variants={itemVariants}
-                  className="group p-5 rounded-xl bg-dark-800/30 border border-dark-700 hover:border-accent/50 transition-all duration-300"
+                  whileHover={{ scale: 1.02, borderColor: 'rgba(99, 102, 241, 0.5)' }}
+                  className="p-5 rounded-xl bg-dark-800/30 border border-white/5 transition-all duration-300 group"
                 >
                   <div className="flex items-start gap-4">
-                    <div className="p-2.5 rounded-lg bg-accent/10 text-accent group-hover:bg-accent/20 transition-colors">
+                    <motion.div
+                      whileHover={{ scale: 1.1, rotate: 5 }}
+                      className="p-2.5 rounded-xl bg-accent/10 text-accent group-hover:bg-accent/20 transition-colors"
+                    >
                       <item.icon size={20} />
-                    </div>
+                    </motion.div>
                     <div className="space-y-1">
-                      <h4 className="font-medium text-white">{item.title}</h4>
-                      <p className="text-sm text-[var(--color-text-secondary)]">
+                      <h4 className="font-semibold text-white">{item.title}</h4>
+                      <p className="text-sm text-zinc-500 leading-relaxed">
                         {item.description}
                       </p>
                     </div>
                   </div>
                 </motion.div>
               ))}
+            </motion.div>
+
+            {/* CTA */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              className="pt-4"
+            >
+              <motion.a
+                href="/contact"
+                whileHover={{ scale: 1.02 }}
+                className="inline-flex items-center gap-3 px-6 py-3 rounded-xl bg-accent hover:bg-accent-dark text-white font-medium transition-colors"
+              >
+                Let's Work Together
+                <ArrowRight size={18} />
+              </motion.a>
             </motion.div>
           </motion.div>
         </div>
