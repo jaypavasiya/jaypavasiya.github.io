@@ -1,0 +1,221 @@
+{
+  "timestamp": "2026-07-15T09-09-47-966Z",
+  "results": [
+    {
+      "page": "Home",
+      "viewport": "mobile-375",
+      "errors": 0,
+      "a11yIssues": [
+        "Buttons without names: 1"
+      ],
+      "layoutIssues": [
+        "Overflow elements: HTML, BODY, DIV, MAIN, SECTION"
+      ],
+      "screenshot": "./test-log/2026-07-15T09-09-47-966Z/home-mobile-375.png"
+    },
+    {
+      "page": "About",
+      "viewport": "mobile-375",
+      "errors": 0,
+      "a11yIssues": [
+        "Buttons without names: 1"
+      ],
+      "layoutIssues": [
+        "Overflow elements: HTML, BODY, DIV, MAIN, SECTION"
+      ],
+      "screenshot": "./test-log/2026-07-15T09-09-47-966Z/about-mobile-375.png"
+    },
+    {
+      "page": "Experience",
+      "viewport": "mobile-375",
+      "errors": 0,
+      "a11yIssues": [
+        "Buttons without names: 1"
+      ],
+      "layoutIssues": [
+        "Overflow elements: HTML, BODY, DIV, MAIN, SECTION"
+      ],
+      "screenshot": "./test-log/2026-07-15T09-09-47-966Z/experience-mobile-375.png"
+    },
+    {
+      "page": "Skills",
+      "viewport": "mobile-375",
+      "errors": 0,
+      "a11yIssues": [
+        "Buttons without names: 1"
+      ],
+      "layoutIssues": [
+        "Overflow elements: HTML, BODY, DIV, MAIN, SECTION"
+      ],
+      "screenshot": "./test-log/2026-07-15T09-09-47-966Z/skills-mobile-375.png"
+    },
+    {
+      "page": "Projects",
+      "viewport": "mobile-375",
+      "errors": 0,
+      "a11yIssues": [
+        "Buttons without names: 1"
+      ],
+      "layoutIssues": [
+        "Overflow elements: HTML, BODY, DIV, MAIN, SECTION"
+      ],
+      "screenshot": "./test-log/2026-07-15T09-09-47-966Z/projects-mobile-375.png"
+    },
+    {
+      "page": "Contact",
+      "viewport": "mobile-375",
+      "errors": 0,
+      "a11yIssues": [
+        "Buttons without names: 1"
+      ],
+      "layoutIssues": [
+        "Overflow elements: HTML, BODY, DIV, MAIN, SECTION"
+      ],
+      "screenshot": "./test-log/2026-07-15T09-09-47-966Z/contact-mobile-375.png"
+    },
+    {
+      "page": "Home",
+      "viewport": "tablet-768",
+      "errors": 0,
+      "a11yIssues": [
+        "Buttons without names: 1"
+      ],
+      "layoutIssues": [
+        "Overflow elements: HTML, BODY, DIV, MAIN, SECTION"
+      ],
+      "screenshot": "./test-log/2026-07-15T09-09-47-966Z/home-tablet-768.png"
+    },
+    {
+      "page": "About",
+      "viewport": "tablet-768",
+      "errors": 0,
+      "a11yIssues": [
+        "Buttons without names: 1"
+      ],
+      "layoutIssues": [
+        "Overflow elements: HTML, BODY, DIV, MAIN, SECTION"
+      ],
+      "screenshot": "./test-log/2026-07-15T09-09-47-966Z/about-tablet-768.png"
+    },
+    {
+      "page": "Experience",
+      "viewport": "tablet-768",
+      "errors": 0,
+      "a11yIssues": [
+        "Buttons without names: 1"
+      ],
+      "layoutIssues": [
+        "Overflow elements: HTML, BODY, DIV, MAIN, SECTION"
+      ],
+      "screenshot": "./test-log/2026-07-15T09-09-47-966Z/experience-tablet-768.png"
+    },
+    {
+      "page": "Skills",
+      "viewport": "tablet-768",
+      "errors": 0,
+      "a11yIssues": [
+        "Buttons without names: 1"
+      ],
+      "layoutIssues": [],
+      "screenshot": "./test-log/2026-07-15T09-09-47-966Z/skills-tablet-768.png"
+    },
+    {
+      "page": "Projects",
+      "viewport": "tablet-768",
+      "errors": 0,
+      "a11yIssues": [
+        "Buttons without names: 1"
+      ],
+      "layoutIssues": [
+        "Overflow elements: HTML, BODY, DIV, MAIN, SECTION"
+      ],
+      "screenshot": "./test-log/2026-07-15T09-09-47-966Z/projects-tablet-768.png"
+    },
+    {
+      "page": "Contact",
+      "viewport": "tablet-768",
+      "errors": 0,
+      "a11yIssues": [
+        "Buttons without names: 1"
+      ],
+      "layoutIssues": [
+        "Overflow elements: HTML, BODY, DIV, MAIN, SECTION"
+      ],
+      "screenshot": "./test-log/2026-07-15T09-09-47-966Z/contact-tablet-768.png"
+    },
+    {
+      "page": "Home",
+      "viewport": "desktop-1440",
+      "errors": 0,
+      "a11yIssues": [
+        "Buttons without names: 1"
+      ],
+      "layoutIssues": [
+        "Overflow elements: HTML, BODY, DIV, MAIN, SECTION"
+      ],
+      "screenshot": "./test-log/2026-07-15T09-09-47-966Z/home-desktop-1440.png"
+    },
+    {
+      "page": "About",
+      "viewport": "desktop-1440",
+      "errors": 0,
+      "a11yIssues": [
+        "Buttons without names: 1"
+      ],
+      "layoutIssues": [
+        "Overflow elements: HTML, BODY, DIV, MAIN, SECTION"
+      ],
+      "screenshot": "./test-log/2026-07-15T09-09-47-966Z/about-desktop-1440.png"
+    },
+    {
+      "page": "Experience",
+      "viewport": "desktop-1440",
+      "errors": 0,
+      "a11yIssues": [
+        "Buttons without names: 1"
+      ],
+      "layoutIssues": [
+        "Overflow elements: HTML, BODY, DIV, MAIN, SECTION"
+      ],
+      "screenshot": "./test-log/2026-07-15T09-09-47-966Z/experience-desktop-1440.png"
+    },
+    {
+      "page": "Skills",
+      "viewport": "desktop-1440",
+      "errors": 0,
+      "a11yIssues": [
+        "Buttons without names: 1"
+      ],
+      "layoutIssues": [],
+      "screenshot": "./test-log/2026-07-15T09-09-47-966Z/skills-desktop-1440.png"
+    },
+    {
+      "page": "Projects",
+      "viewport": "desktop-1440",
+      "errors": 0,
+      "a11yIssues": [
+        "Buttons without names: 1"
+      ],
+      "layoutIssues": [
+        "Overflow elements: HTML, BODY, DIV, MAIN, SECTION"
+      ],
+      "screenshot": "./test-log/2026-07-15T09-09-47-966Z/projects-desktop-1440.png"
+    },
+    {
+      "page": "Contact",
+      "viewport": "desktop-1440",
+      "errors": 0,
+      "a11yIssues": [
+        "Buttons without names: 1"
+      ],
+      "layoutIssues": [
+        "Overflow elements: HTML, BODY, DIV, FOOTER"
+      ],
+      "screenshot": "./test-log/2026-07-15T09-09-47-966Z/contact-desktop-1440.png"
+    }
+  ],
+  "summary": {
+    "totalErrors": 0,
+    "passedPages": 18
+  }
+}

@@ -1,244 +1,70 @@
-import { useRef, useState } from 'react'
-import { motion, useScroll, useTransform, useInView } from 'framer-motion'
-import { Code, Database, Palette, Wrench, Layers, Server, Cloud, Terminal, Figma, Globe } from 'lucide-react'
+import { motion } from 'framer-motion'
 
 const Skills = () => {
-  const containerRef = useRef()
-  const [activeCategory, setActiveCategory] = useState('all')
-  
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ['start end', 'end start'],
-  })
-
-  const y = useTransform(scrollYProgress, [0, 1], ['0%', '15%'])
-
-  const skillCategories = [
-    {
-      id: 'frontend',
-      label: 'Frontend',
-      icon: Code,
-      color: '#6366f1',
-      skills: [
-        { name: 'React', level: 95 },
-        { name: 'TypeScript', level: 90 },
-        { name: 'JavaScript', level: 95 },
-        { name: 'Next.js', level: 85 },
-        { name: 'Tailwind CSS', level: 92 },
-        { name: 'GSAP', level: 85 },
-      ],
-    },
-    {
-      id: 'backend',
-      label: 'Backend',
-      icon: Database,
-      color: '#10b981',
-      skills: [
-        { name: 'Node.js', level: 85 },
-        { name: 'Express', level: 85 },
-        { name: 'GraphQL', level: 80 },
-        { name: 'REST APIs', level: 92 },
-        { name: 'PostgreSQL', level: 75 },
-        { name: 'MongoDB', level: 78 },
-      ],
-    },
-    {
-      id: 'tools',
-      label: 'DevOps',
-      icon: Server,
-      color: '#f59e0b',
-      skills: [
-        { name: 'Git', level: 92 },
-        { name: 'Docker', level: 70 },
-        { name: 'AWS', level: 72 },
-        { name: 'Vercel', level: 90 },
-        { name: 'CI/CD', level: 80 },
-        { name: 'Linux', level: 75 },
-      ],
-    },
-    {
-      id: 'design',
-      label: 'Design',
-      icon: Palette,
-      color: '#ec4899',
-      skills: [
-        { name: 'Figma', level: 85 },
-        { name: 'UI/UX', level: 80 },
-        { name: 'Responsive', level: 95 },
-        { name: 'Animation', level: 88 },
-        { name: 'Accessibility', level: 85 },
-        { name: 'Motion', level: 82 },
-      ],
-    },
+  const skills = [
+    { name: 'React', level: 95 },
+    { name: 'JavaScript', level: 95 },
+    { name: 'TypeScript', level: 85 },
+    { name: 'HTML/CSS', level: 95 },
+    { name: 'Tailwind CSS', level: 90 },
+    { name: 'Next.js', level: 80 },
+    { name: 'React Native', level: 75 },
+    { name: 'GSAP', level: 80 },
+    { name: 'Framer Motion', level: 85 },
+    { name: 'Git', level: 90 },
+    { name: 'Figma', level: 75 },
+    { name: 'Node.js', level: 70 },
   ]
 
-  const allSkills = skillCategories.flatMap(cat => cat.skills)
-
-  const filteredSkills = activeCategory === 'all' 
-    ? allSkills 
-    : skillCategories.find(cat => cat.id === activeCategory)?.skills || []
-
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.03,
-      },
-    },
-  }
-
-  const skillVariants = {
-    hidden: { opacity: 0, scale: 0.8 },
-    visible: { opacity: 1, scale: 1 },
-  }
-
   return (
-    <section id="skills" ref={containerRef} className="relative py-32 overflow-hidden">
-      <motion.div style={{ y }} className="container-custom">
-        {/* Section Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-16"
-        >
-          <span className="inline-block text-accent font-mono text-sm tracking-wider uppercase mb-4">
-            Tech Stack
-          </span>
-          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight mb-6">
-            Skills &
-            <br />
-            <span className="text-gradient">Expertise</span>
-          </h2>
-          <p className="text-lg text-zinc-500 dark:text-zinc-400 max-w-2xl mx-auto">
-            Technologies and tools I use to bring ideas to life
-          </p>
-        </motion.div>
-
-        {/* Category Filter */}
+    <section id="skills" className="py-24 sm:py-32">
+      <div className="container-custom">
+        {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="flex flex-wrap justify-center gap-3 mb-12"
+          className="text-center mb-16"
         >
-          <motion.button
-            onClick={() => setActiveCategory('all')}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className={`px-5 py-2.5 rounded-xl text-sm font-medium transition-all duration-300 ${
-              activeCategory === 'all'
-                ? 'bg-accent text-white'
-                : 'dark:bg-dark-800/50 dark:text-zinc-400 dark:hover:text-white bg-zinc-100 text-zinc-600 hover:text-zinc-900 border border-zinc-200 dark:border-white/5'
-            }`}
-          >
-            All Skills
-          </motion.button>
-          {skillCategories.map((cat) => (
-            <motion.button
-              key={cat.id}
-              onClick={() => setActiveCategory(cat.id)}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className={`flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-medium transition-all duration-300 ${
-                activeCategory === cat.id
-                  ? 'text-white'
-                  : 'dark:bg-dark-800/50 dark:text-zinc-400 dark:hover:text-white bg-zinc-100 text-zinc-600 hover:text-zinc-900 border border-zinc-200 dark:border-white/5'
-              }`}
-              style={activeCategory === cat.id ? { backgroundColor: cat.color } : {}}
-            >
-              <cat.icon size={16} />
-              {cat.label}
-            </motion.button>
-          ))}
+          <h1 className="text-4xl sm:text-5xl font-bold mb-4">Skills</h1>
+          <p className="text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
+            Technologies I work with to build great web applications
+          </p>
         </motion.div>
 
         {/* Skills Grid */}
         <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
-          className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4 mb-20"
+          className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 max-w-4xl mx-auto"
         >
-          {filteredSkills.map((skill, index) => (
+          {skills.map((skill, index) => (
             <motion.div
-              key={`${skill.name}-${index}`}
-              variants={skillVariants}
-              whileHover={{ scale: 1.05, borderColor: 'rgba(99, 102, 241, 0.5)' }}
-              className="group p-5 rounded-2xl dark:bg-dark-800/50 bg-white border border-zinc-200 dark:border-white/5 transition-all duration-300 cursor-default"
+              key={skill.name}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: index * 0.05 }}
+              className="p-4 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"
             >
-              <div className="text-center">
-                <div className="w-12 h-12 mx-auto mb-3 rounded-xl flex items-center justify-center text-lg font-bold bg-accent/10 text-accent">
-                  {skill.name.charAt(0)}
-                </div>
-                <h4 className="font-medium text-zinc-900 dark:text-white text-sm mb-3">{skill.name}</h4>
-                <div className="w-full h-1.5 bg-zinc-200 dark:bg-dark-700 rounded-full overflow-hidden">
-                  <motion.div
-                    initial={{ width: 0 }}
-                    whileInView={{ width: `${skill.level}%` }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 1, delay: index * 0.05, ease: 'easeOut' }}
-                    className="h-full rounded-full bg-gradient-to-r from-accent to-accent-light"
-                  />
-                </div>
-                <span className="text-xs text-zinc-500 dark:text-zinc-500 mt-2 block">{skill.level}%</span>
+              <div className="flex items-center justify-between mb-2">
+                <span className="font-medium text-slate-900 dark:text-white">{skill.name}</span>
+                <span className="text-sm text-slate-500">{skill.level}%</span>
+              </div>
+              <div className="h-1.5 bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden">
+                <motion.div
+                  initial={{ width: 0 }}
+                  whileInView={{ width: `${skill.level}%` }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.8, delay: index * 0.05 }}
+                  className="h-full bg-indigo-500 rounded-full"
+                />
               </div>
             </motion.div>
           ))}
         </motion.div>
-
-        {/* Detailed Skills by Category */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {skillCategories.map((category, catIndex) => (
-            <motion.div
-              key={category.id}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: catIndex * 0.1 }}
-              className="p-6 rounded-2xl dark:bg-dark-800/30 bg-zinc-50 border border-zinc-200 dark:border-white/5"
-            >
-              <div className="flex items-center gap-3 mb-6">
-                <div 
-                  className="p-3 rounded-xl"
-                  style={{ backgroundColor: `${category.color}20` }}
-                >
-                  <category.icon size={24} style={{ color: category.color }} />
-                </div>
-                <h3 className="text-xl font-bold text-zinc-900 dark:text-white">{category.label}</h3>
-              </div>
-
-              <div className="space-y-4">
-                {category.skills.map((skill, index) => (
-                  <div key={index} className="space-y-2">
-                    <div className="flex justify-between text-sm">
-                      <span className="text-zinc-700 dark:text-zinc-300">{skill.name}</span>
-                      <span className="text-zinc-500 dark:text-zinc-500">{skill.level}%</span>
-                    </div>
-                    <div className="w-full h-2 bg-zinc-200 dark:bg-dark-700 rounded-full overflow-hidden">
-                      <motion.div
-                        initial={{ width: 0 }}
-                        whileInView={{ width: `${skill.level}%` }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 1, delay: index * 0.1 }}
-                        className="h-full rounded-full"
-                        style={{ backgroundColor: category.color }}
-                      />
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </motion.div>
-          ))}
-        </div>
-      </motion.div>
-
-      {/* Background decoration */}
-      <div className="absolute top-1/4 right-0 w-96 h-96 bg-accent/5 rounded-full blur-[150px] pointer-events-none" />
-      <div className="absolute bottom-1/4 left-0 w-96 h-96 bg-accent-light/5 rounded-full blur-[150px] pointer-events-none" />
+      </div>
     </section>
   )
 }

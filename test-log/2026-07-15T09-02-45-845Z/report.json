@@ -1,0 +1,225 @@
+{
+  "timestamp": "2026-07-15T09-02-45-845Z",
+  "results": [
+    {
+      "page": "Home",
+      "viewport": "mobile-375",
+      "errors": 0,
+      "a11yIssues": [
+        "h1 count: 0 (expected 1)"
+      ],
+      "layoutIssues": [
+        "Overflow elements: DIV"
+      ],
+      "screenshot": "./test-log/2026-07-15T09-02-45-845Z/home-mobile-375.png"
+    },
+    {
+      "page": "About",
+      "viewport": "mobile-375",
+      "errors": 0,
+      "a11yIssues": [
+        "h1 count: 0 (expected 1)"
+      ],
+      "layoutIssues": [
+        "Overflow elements: DIV"
+      ],
+      "screenshot": "./test-log/2026-07-15T09-02-45-845Z/about-mobile-375.png"
+    },
+    {
+      "page": "Experience",
+      "viewport": "mobile-375",
+      "errors": 0,
+      "a11yIssues": [
+        "h1 count: 0 (expected 1)"
+      ],
+      "layoutIssues": [
+        "Overflow elements: DIV"
+      ],
+      "screenshot": "./test-log/2026-07-15T09-02-45-845Z/experience-mobile-375.png"
+    },
+    {
+      "page": "Skills",
+      "viewport": "mobile-375",
+      "errors": 0,
+      "a11yIssues": [
+        "h1 count: 0 (expected 1)"
+      ],
+      "layoutIssues": [
+        "Overflow elements: DIV"
+      ],
+      "screenshot": "./test-log/2026-07-15T09-02-45-845Z/skills-mobile-375.png"
+    },
+    {
+      "page": "Projects",
+      "viewport": "mobile-375",
+      "errors": 0,
+      "a11yIssues": [
+        "h1 count: 0 (expected 1)"
+      ],
+      "layoutIssues": [
+        "Overflow elements: DIV"
+      ],
+      "screenshot": "./test-log/2026-07-15T09-02-45-845Z/projects-mobile-375.png"
+    },
+    {
+      "page": "Contact",
+      "viewport": "mobile-375",
+      "errors": 0,
+      "a11yIssues": [
+        "h1 count: 0 (expected 1)"
+      ],
+      "layoutIssues": [
+        "Overflow elements: DIV"
+      ],
+      "screenshot": "./test-log/2026-07-15T09-02-45-845Z/contact-mobile-375.png"
+    },
+    {
+      "page": "Home",
+      "viewport": "tablet-768",
+      "errors": 0,
+      "a11yIssues": [
+        "h1 count: 0 (expected 1)"
+      ],
+      "layoutIssues": [
+        "Overflow elements: DIV"
+      ],
+      "screenshot": "./test-log/2026-07-15T09-02-45-845Z/home-tablet-768.png"
+    },
+    {
+      "page": "About",
+      "viewport": "tablet-768",
+      "errors": 0,
+      "a11yIssues": [
+        "h1 count: 0 (expected 1)"
+      ],
+      "layoutIssues": [
+        "Overflow elements: DIV"
+      ],
+      "screenshot": "./test-log/2026-07-15T09-02-45-845Z/about-tablet-768.png"
+    },
+    {
+      "page": "Experience",
+      "viewport": "tablet-768",
+      "errors": 0,
+      "a11yIssues": [
+        "h1 count: 0 (expected 1)"
+      ],
+      "layoutIssues": [
+        "Overflow elements: DIV"
+      ],
+      "screenshot": "./test-log/2026-07-15T09-02-45-845Z/experience-tablet-768.png"
+    },
+    {
+      "page": "Skills",
+      "viewport": "tablet-768",
+      "errors": 0,
+      "a11yIssues": [
+        "h1 count: 0 (expected 1)"
+      ],
+      "layoutIssues": [
+        "Overflow elements: DIV"
+      ],
+      "screenshot": "./test-log/2026-07-15T09-02-45-845Z/skills-tablet-768.png"
+    },
+    {
+      "page": "Projects",
+      "viewport": "tablet-768",
+      "errors": 0,
+      "a11yIssues": [
+        "h1 count: 0 (expected 1)"
+      ],
+      "layoutIssues": [
+        "Overflow elements: DIV"
+      ],
+      "screenshot": "./test-log/2026-07-15T09-02-45-845Z/projects-tablet-768.png"
+    },
+    {
+      "page": "Contact",
+      "viewport": "tablet-768",
+      "errors": 0,
+      "a11yIssues": [
+        "h1 count: 0 (expected 1)"
+      ],
+      "layoutIssues": [
+        "Overflow elements: DIV"
+      ],
+      "screenshot": "./test-log/2026-07-15T09-02-45-845Z/contact-tablet-768.png"
+    },
+    {
+      "page": "Home",
+      "viewport": "desktop-1440",
+      "errors": 0,
+      "a11yIssues": [
+        "h1 count: 0 (expected 1)"
+      ],
+      "layoutIssues": [
+        "Overflow elements: DIV"
+      ],
+      "screenshot": "./test-log/2026-07-15T09-02-45-845Z/home-desktop-1440.png"
+    },
+    {
+      "page": "About",
+      "viewport": "desktop-1440",
+      "errors": 0,
+      "a11yIssues": [
+        "h1 count: 0 (expected 1)"
+      ],
+      "layoutIssues": [
+        "Overflow elements: DIV"
+      ],
+      "screenshot": "./test-log/2026-07-15T09-02-45-845Z/about-desktop-1440.png"
+    },
+    {
+      "page": "Experience",
+      "viewport": "desktop-1440",
+      "errors": 0,
+      "a11yIssues": [
+        "h1 count: 0 (expected 1)"
+      ],
+      "layoutIssues": [
+        "Overflow elements: DIV"
+      ],
+      "screenshot": "./test-log/2026-07-15T09-02-45-845Z/experience-desktop-1440.png"
+    },
+    {
+      "page": "Skills",
+      "viewport": "desktop-1440",
+      "errors": 0,
+      "a11yIssues": [
+        "h1 count: 0 (expected 1)"
+      ],
+      "layoutIssues": [
+        "Overflow elements: DIV"
+      ],
+      "screenshot": "./test-log/2026-07-15T09-02-45-845Z/skills-desktop-1440.png"
+    },
+    {
+      "page": "Projects",
+      "viewport": "desktop-1440",
+      "errors": 0,
+      "a11yIssues": [
+        "h1 count: 0 (expected 1)"
+      ],
+      "layoutIssues": [
+        "Overflow elements: DIV"
+      ],
+      "screenshot": "./test-log/2026-07-15T09-02-45-845Z/projects-desktop-1440.png"
+    },
+    {
+      "page": "Contact",
+      "viewport": "desktop-1440",
+      "errors": 0,
+      "a11yIssues": [
+        "h1 count: 0 (expected 1)"
+      ],
+      "layoutIssues": [
+        "Overflow elements: DIV"
+      ],
+      "screenshot": "./test-log/2026-07-15T09-02-45-845Z/contact-desktop-1440.png"
+    }
+  ],
+  "summary": {
+    "totalErrors": 0,
+    "passedPages": 18
+  }
+}
