@@ -1,0 +1,35 @@
+.binary {
+  display: grid;
+  gap: 6px;
+  overflow: hidden;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.3em;
+  color: var(--ink-3);
+  opacity: 0.55;
+  mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+}
+
+.binary-row {
+  display: flex;
+  width: max-content;
+  white-space: nowrap;
+  animation: binary-drift linear infinite;
+}
+
+.binary-row span {
+  padding-right: 0.3em;
+}
+
+@keyframes binary-drift {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .binary-row {
+    animation: none;
+  }
+}
