@@ -107,7 +107,6 @@ export function Experience() {
               <div id={panelId} role="region" aria-labelledby={btnId} className="xp-panel" hidden={!isOpen}>
                 <div className="xp-panel-inner">
                   <p className="xp-summary">{job.summary}</p>
-                  <p className="xp-where mono">{job.location}</p>
                 </div>
               </div>
             </li>

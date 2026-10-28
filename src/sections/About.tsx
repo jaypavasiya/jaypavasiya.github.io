@@ -23,6 +23,8 @@ export function About() {
           scrollTrigger: { trigger: '.about-lead', start: 'top 80%', end: 'bottom 45%', scrub: true },
         },
       )
+      // The chips' CSS hover transition on transform would freeze the tween.
+      gsap.set('.about-chip', { transition: 'none' })
       gsap.from('.about-chip', {
         y: 24,
         opacity: 0,
@@ -31,6 +33,7 @@ export function About() {
         ease: 'back.out(2)',
         stagger: 0.06,
         scrollTrigger: { trigger: '.about-chips', start: 'top 90%', once: true },
+        onComplete: () => gsap.set('.about-chip', { clearProps: 'transition,transform,opacity' }),
       })
       return () => split.revert()
     },
@@ -61,16 +64,16 @@ export function About() {
       </div>
       <dl className="about-facts">
         <div>
-          <dt className="mono">Based in</dt>
-          <dd>{profile.location}</dd>
+          <dt className="mono">Building since</dt>
+          <dd>{profile.since}</dd>
         </div>
         <div>
           <dt className="mono">Doing</dt>
           <dd>{profile.role}</dd>
         </div>
         <div>
-          <dt className="mono">Workflow</dt>
-          <dd>{profile.tagline}</dd>
+          <dt className="mono">Focus</dt>
+          <dd>{profile.focus}</dd>
         </div>
       </dl>
       <BinaryMarquee rows={3} word="HELLO" />

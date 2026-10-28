@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState, type PointerEvent } from 'react'
-import { projects } from '../content/profile'
+import { companyWork, profile, projects, type CompanyProject } from '../content/profile'
 import { gsap, useGSAP, prefersReducedMotion, SCRAMBLE_CHARS } from '../lib/motion'
 import { KineticHeading } from '../components/KineticHeading'
 import './Projects.css'
@@ -76,6 +76,103 @@ function ProjectVisual({ index, name }: { index: number; name: string }) {
   )
 }
 
+// A wireframe of the product with the interesting parts blacked out:
+// enough to show the shape of the work, nothing that's under NDA.
+function RedactedScreen({ kind }: { kind: 'chat' | 'dashboard' }) {
+  const W = 480
+  const H = 300
+  return (
+    <svg className="cw-screen" viewBox={`0 0 ${W} ${H}`} preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+      <rect className="cw-s-bg" width={W} height={H} />
+      <rect className="cw-s-bar" width={W} height={26} />
+      {[14, 28, 42].map((x) => (
+        <circle key={x} className="cw-s-dot" cx={x} cy={13} r={4} />
+      ))}
+      <rect className="cw-s-side" y={26} width={92} height={H - 26} />
+      {[48, 72, 96, 120, 144].map((y, i) => (
+        <rect key={y} className={i === 1 ? 'cw-s-redact' : 'cw-s-line'} x={14} y={y} width={i === 1 ? 64 : 52 - i * 4} height={9} rx={3} />
+      ))}
+      {kind === 'chat' ? (
+        <>
+          <rect className="cw-s-bubble" x={112} y={46} width={190} height={44} rx={12} />
+          <rect className="cw-s-redact" x={124} y={58} width={140} height={8} rx={3} />
+          <rect className="cw-s-line" x={124} y={72} width={96} height={8} rx={3} />
+          <rect className="cw-s-bubble cw-s-me" x={262} y={104} width={196} height={34} rx={12} />
+          <rect className="cw-s-redact" x={274} y={117} width={150} height={8} rx={3} />
+          <rect className="cw-s-bubble" x={112} y={152} width={240} height={80} rx={12} />
+          {[0, 1, 2].map((i) => (
+            <rect key={i} className="cw-s-card" x={124 + i * 74} y={164} width={66} height={56} rx={6} />
+          ))}
+          <rect className="cw-s-redact" x={124} y={190} width={214} height={10} rx={3} />
+          <rect className="cw-s-input" x={112} y={252} width={348} height={32} rx={16} />
+          <circle className="cw-s-send" cx={442} cy={268} r={10} />
+        </>
+      ) : (
+        <>
+          {[0, 1, 2].map((i) => (
+            <g key={i}>
+              <rect className="cw-s-card" x={112 + i * 118} y={42} width={108} height={62} rx={8} />
+              <rect className="cw-s-line" x={124 + i * 118} y={54} width={50} height={7} rx={3} />
+              <rect className="cw-s-redact" x={124 + i * 118} y={70} width={70} height={18} rx={3} />
+            </g>
+          ))}
+          <rect className="cw-s-card" x={112} y={118} width={226} height={164} rx={8} />
+          {Array.from({ length: 9 }, (_, i) => {
+            const h = 24 + 90 * Math.abs(Math.sin(i * 0.9 + 1))
+            return <rect key={i} className={i === 6 ? 'cw-s-hot' : 'cw-s-col'} x={128 + i * 23} y={266 - h} width={14} height={h} rx={3} />
+          })}
+          <rect className="cw-s-card" x={348} y={118} width={118} height={164} rx={8} />
+          {[136, 162, 188, 214, 240].map((y, i) => (
+            <rect key={y} className={i % 2 ? 'cw-s-redact' : 'cw-s-line'} x={360} y={y} width={i % 2 ? 90 : 74} height={9} rx={3} />
+          ))}
+        </>
+      )}
+      <rect className="cw-scan" x={0} y={0} width={W} height={40} />
+    </svg>
+  )
+}
+
+function CompanyCard({ c, i }: { c: CompanyProject; i: number }) {
+  const ask = `mailto:${profile.email}?subject=${encodeURIComponent(`About your work on ${c.product}`)}`
+  return (
+    <li className="cw-card">
+      <div className="cw-media">
+        <RedactedScreen kind={i === 0 ? 'chat' : 'dashboard'} />
+        <span className="cw-stamp mono">Confidential</span>
+      </div>
+      <div className="cw-body">
+        <p className="cw-company mono">
+          {c.company} · {c.period}
+        </p>
+        <h4 className="cw-product">{c.product}</h4>
+        <p className="cw-role">{c.role}</p>
+        <p className="cw-pitch">{c.pitch}</p>
+        <p className="cw-focus-label mono">What I worked on</p>
+        <ul className="cw-focus">
+          {c.focus.map((f) => (
+            <li key={f}>{f}</li>
+          ))}
+        </ul>
+        <ul className="cw-stack mono" aria-label="Stack">
+          {c.stack.map((t) => (
+            <li key={t}>{t}</li>
+          ))}
+        </ul>
+        <div className="cw-actions">
+          <a className="cw-visit" href={c.url} target="_blank" rel="noopener noreferrer">
+            Visit {c.product}
+            <span aria-hidden="true"> ↗</span>
+            <span className="visually-hidden"> (opens in a new tab)</span>
+          </a>
+          <a className="cw-ask mono" href={ask}>
+            Ask me about it
+          </a>
+        </div>
+      </div>
+    </li>
+  )
+}
+
 const canHover = () => typeof window !== 'undefined' && window.matchMedia('(hover: hover) and (pointer: fine)').matches
 
 export function Projects() {
@@ -90,6 +187,19 @@ export function Projects() {
   useGSAP(
     () => {
       if (!prefersReducedMotion()) {
+        // The card's CSS transform transition (for hover) fights the tween,
+        // freezing it at the start values, so switch it off until the reveal ends.
+        gsap.set('.cw-card', { transition: 'none' })
+        gsap.from('.cw-card', {
+          y: 80,
+          opacity: 0,
+          rotate: (i: number) => (i % 2 ? 2 : -2),
+          duration: 1.1,
+          ease: 'expo.out',
+          stagger: 0.12,
+          scrollTrigger: { trigger: '.cw-grid', start: 'top 85%', once: true },
+          onComplete: () => gsap.set('.cw-card', { clearProps: 'transition,transform,opacity' }),
+        })
         gsap.fromTo('.pj-row', { yPercent: 60, opacity: 0 }, {
           yPercent: 0,
           opacity: 1,
@@ -178,9 +288,26 @@ export function Projects() {
       <div className="pj-head">
         <KineticHeading className="pj-title">Selected work</KineticHeading>
         <p className="pj-count mono" aria-hidden="true">
-          ({pad(projects.length)}) on GitHub
+          ({pad(companyWork.length)}) at work · ({pad(projects.length)}) on GitHub
         </p>
       </div>
+
+      <div className="cw">
+        <div className="cw-head">
+          <h3 className="cw-label mono">Company work</h3>
+          <p className="cw-note">
+            Products I build at work. The screens, code and numbers are confidential, so you get the shape of the work here and the details in
+            person once the company says it’s OK to share.
+          </p>
+        </div>
+        <ul className="cw-grid">
+          {companyWork.map((c, i) => (
+            <CompanyCard key={c.product} c={c} i={i} />
+          ))}
+        </ul>
+      </div>
+
+      <h3 className="cw-label pj-side-label mono">Side projects</h3>
 
       <ul className="pj-list" onPointerEnter={show} onPointerMove={(e) => place(e)} onPointerLeave={hide}>
         {projects.map((p, i) => (

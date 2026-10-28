@@ -5,17 +5,17 @@
 export const profile = {
   name: 'Jay Pavasiya',
   firstName: 'Jay',
-  role: 'Senior Frontend Developer',
-  tagline: 'Shipping with AI',
-  location: 'Gujarat, India',
+  role: 'Senior Software Engineer',
+  // Short line under the role in the hero.
+  focus: 'React, TypeScript & real-time UI',
+  since: 2019,
   intro:
     'I build modern, scalable web apps: pixel-perfect frontends, the real-time bits behind them, and enough backend to ship the whole thing.',
   about: [
-    'I started in 2019 as a graphic designer, moved into React the same year and haven’t looked back. Today I’m a senior frontend developer on Vibelets.ai, working remotely from Gujarat.',
+    'I started in 2019 as a graphic designer, moved into React the same year and haven’t looked back. Today I’m a senior software engineer at Vibelets.ai.',
     'Most of my days are React: React Query, Redux, custom hooks and Context, built with Vite or Webpack, tested with Cypress. I like real-time apps over WebSockets, and I use Python for backend services, automation and integrations.',
-    'I pair-program with AI coding tools every day. They take me from idea to shipped feature much faster, so my time goes into product and architecture instead of boilerplate.',
   ],
-  askMeAbout: ['React architecture', 'real-time apps', 'shipping fast with AI', 'build tooling', 'WebAssembly'],
+  askMeAbout: ['React architecture', 'real-time apps', 'testing with Cypress', 'build tooling', 'WebAssembly'],
   email: 'jaypavasiya7@gmail.com',
   socials: [
     { label: 'GitHub', href: 'https://github.com/jaypavasiya' },
@@ -29,7 +29,6 @@ export type Job = {
   company: string
   role: string
   period: string
-  location: string
   summary: string
   pending?: boolean
 }
@@ -38,44 +37,38 @@ export type Job = {
 export const experience: Job[] = [
   {
     company: 'Vibelets.ai',
-    role: 'Senior Frontend Developer',
+    role: 'Senior Software Engineer',
     period: 'Sep 2025 to now',
-    location: 'Gurugram · Remote',
     summary: 'Frontend for Vibelets, an AI marketing product: chat-driven agent UX, real-time streaming and the React data layer behind it.',
   },
   {
     company: 'Adsparkx',
     role: 'Frontend Developer',
     period: 'Jul 2023 to now',
-    location: 'Delhi · Remote',
     summary: 'Frontend development in JavaScript and React across Adsparkx’s ad-tech products.',
   },
   {
     company: 'Across Infotech',
     role: 'Frontend Developer',
     period: 'Jul 2023 to Dec 2024',
-    location: 'Surat, Gujarat',
     summary: 'Front-end development with React.js.',
   },
   {
     company: 'Eliteware Solutions',
     role: 'Frontend Developer · Freelance',
     period: 'Jan 2023 to Jun 2023',
-    location: 'Vadodara · Remote',
     summary: 'Freelance front-end development in JavaScript.',
   },
   {
     company: 'Artoon Solutions',
     role: 'Sr. React.js Developer',
     period: 'Dec 2019 to Jan 2023',
-    location: 'Surat, Gujarat',
     summary: 'Three years of React and TypeScript front-end development, growing into a senior React role.',
   },
   {
     company: 'Oceantecnoweb',
     role: 'Graphic Designer',
     period: 'Mar 2019 to Oct 2019',
-    location: 'Surat, Gujarat',
     summary: 'Where it started: design first, code second. It still shapes how I build UI.',
   },
 ]
@@ -86,6 +79,45 @@ export const education = {
   period: '2016 to 2019',
 }
 
+export type CompanyProject = {
+  product: string
+  company: string
+  role: string
+  period: string
+  // The product's own public pitch, from its website.
+  pitch: string
+  // What Jay worked on, kept high level: the details are under NDA.
+  focus: string[]
+  stack: string[]
+  url: string
+}
+
+// Company work. Shown as confidential cases: what the product is (public),
+// what Jay owned (high level), and a link to the public site. No screenshots,
+// metrics or internals without the company's approval.
+export const companyWork: CompanyProject[] = [
+  {
+    product: 'Vibelets',
+    company: 'Vibelets.ai',
+    role: 'Senior Software Engineer',
+    period: '2025 to now',
+    pitch: 'An AI growth team for Meta ads: it learns the business, plans next week’s ads, then creates and launches them, with the owner approving every move.',
+    focus: ['Chat and agent experience', 'Real-time streaming UI', 'React data layer and state'],
+    stack: ['React', 'TypeScript', 'React Query', 'Redux', 'WebSockets'],
+    url: 'https://vibelets.ai',
+  },
+  {
+    product: 'AdUnbox',
+    company: 'Adsparkx',
+    role: 'Frontend Developer',
+    period: '2023 to now',
+    pitch: 'An ad management platform that handles ad automations and performance tracking, so teams can focus on growth.',
+    focus: ['Campaign and automation dashboards', 'Performance reporting UI', 'Shared component system'],
+    stack: ['React', 'JavaScript', 'SCSS'],
+    url: 'https://adunbox.com',
+  },
+]
+
 export type Project = {
   name: string
   blurb: string
@@ -94,7 +126,7 @@ export type Project = {
   year: string
 }
 
-// Real public repositories on github.com/jaypavasiya.
+// Side projects: public repositories on github.com/jaypavasiya.
 export const projects: Project[] = [
   {
     name: 'This portfolio',
@@ -116,27 +148,6 @@ export const projects: Project[] = [
     tags: ['React', 'TypeScript', 'React Query'],
     href: 'https://github.com/jaypavasiya/react-with-typescript',
     year: '2022',
-  },
-  {
-    name: 'Snake Game',
-    blurb: 'The classic, rebuilt in React.',
-    tags: ['React', 'Game loop'],
-    href: 'https://github.com/jaypavasiya/snake-game',
-    year: '2022',
-  },
-  {
-    name: 'React Boilerplate with Redux',
-    blurb: 'An opinionated Create React App setup with Redux wired in.',
-    tags: ['React', 'Redux'],
-    href: 'https://github.com/jaypavasiya/react-boilerplate-with-redux',
-    year: '2022',
-  },
-  {
-    name: 'Hello, every language',
-    blurb: 'Hello world in as many programming languages as people will contribute.',
-    tags: ['Open source'],
-    href: 'https://github.com/jaypavasiya/knowledge-share-multi-language',
-    year: '2021',
   },
 ]
 

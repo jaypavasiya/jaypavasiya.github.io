@@ -1,0 +1,130 @@
+/* A light colour in both themes so `difference` always inverts what is under it. */
+:root {
+  --cursor-c: var(--paper);
+}
+:root[data-theme='dark'] {
+  --cursor-c: var(--ink);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    --cursor-c: var(--ink);
+  }
+}
+
+/* Native cursor hides only while ours is on screen; text fields keep the I-beam. */
+html.has-cursor.cursor-visible,
+html.has-cursor.cursor-visible * {
+  cursor: none !important;
+}
+
+html.has-cursor.cursor-visible :is(input, textarea, [contenteditable='true'], [contenteditable='']) {
+  cursor: text !important;
+}
+
+/* Each piece is its own fixed layer (no shared stacking context) so the
+   difference blend reaches the page underneath. GSAP moves .cursor-pos;
+   CSS scales the shape inside it. */
+.cursor-pos {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 999;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+}
+
+.cursor-blend {
+  mix-blend-mode: difference;
+}
+
+.cursor-dot,
+.cursor-ring,
+.cursor-tag {
+  position: absolute;
+  opacity: 0;
+  transition:
+    opacity 0.25s,
+    scale 0.35s var(--ease-out),
+    background-color 0.25s,
+    border-width 0.25s;
+}
+
+html.cursor-visible .cursor-dot,
+html.cursor-visible .cursor-ring {
+  opacity: 1;
+}
+
+.cursor-dot {
+  width: 8px;
+  height: 8px;
+  margin: -4px 0 0 -4px;
+  border-radius: 50%;
+  background: var(--cursor-c);
+}
+
+.cursor-ring {
+  width: 36px;
+  height: 36px;
+  margin: -18px 0 0 -18px;
+  border: 1.5px solid var(--cursor-c);
+  border-radius: 50%;
+}
+html[data-cursor-state='hover'] .cursor-ring {
+  scale: 1.6;
+  background: var(--cursor-c);
+  border-width: 0;
+}
+
+html[data-cursor-state='hover'] .cursor-dot {
+  scale: 0;
+}
+
+html.cursor-down .cursor-ring {
+  scale: 0.75;
+}
+
+html.cursor-down[data-cursor-state='hover'] .cursor-ring {
+  scale: 1.35;
+}
+
+html[data-cursor-state='text'] .cursor-dot,
+html[data-cursor-state='text'] .cursor-ring,
+html[data-cursor-state='label'] .cursor-dot,
+html[data-cursor-state='label'] .cursor-ring {
+  opacity: 0;
+  scale: 0.4;
+}
+
+.cursor-tag {
+  display: grid;
+  place-items: center;
+  width: 68px;
+  height: 68px;
+  margin: -34px 0 0 -34px;
+  border-radius: 50%;
+  background: var(--accent);
+  color: var(--accent-ink);
+  scale: 0.2;
+}
+
+html.cursor-visible[data-cursor-state='label'] .cursor-tag {
+  opacity: 1;
+  scale: 1;
+}
+
+html.cursor-down[data-cursor-state='label'] .cursor-tag {
+  scale: 0.88;
+}
+
+.cursor-label {
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+}
+
+@media (hover: none), (pointer: coarse), (prefers-reduced-motion: reduce) {
+  .cursor-pos {
+    display: none;
+  }
+}

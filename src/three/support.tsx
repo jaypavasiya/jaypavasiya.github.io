@@ -14,6 +14,15 @@ export function hasWebGL() {
   }
 }
 
+// Preloader contract: announce once, when the hero's first 3D frame has been
+// painted or the static fallback is showing instead.
+let heroReadySent = false
+export function signalHeroReady() {
+  if (heroReadySent || typeof window === 'undefined') return
+  heroReadySent = true
+  window.dispatchEvent(new Event('hero:ready'))
+}
+
 type Props = { fallback: ReactNode; children: ReactNode; onError?: () => void }
 
 // Anything that blows up inside the 3D tree (no WebGL, shader compile

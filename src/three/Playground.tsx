@@ -1,9 +1,12 @@
 import { Suspense, useEffect, useRef, useState, type PointerEvent as ReactPointerEvent, type RefObject } from 'react'
-import { Canvas } from '@react-three/fiber'
+import { Canvas, useFrame } from '@react-three/fiber'
 import { PerformanceMonitor } from '@react-three/drei'
 import { Scene } from './Scene'
-import { input, markInteracted, onFirstInput, resetWorld, settings } from './store'
+import { signalHeroReady } from './support'
+import { input, markInteracted, onFirstInput, settings } from './store'
 import { useWorldColors } from './theme'
+import { Hud } from '../game/Hud'
+import { useGameAudio } from '../game/useGameAudio'
 
 const KEYMAP: Record<string, keyof typeof input.keys> = {
   KeyW: 'up',
@@ -34,7 +37,11 @@ function useKeyboard(wrap: RefObject<HTMLDivElement | null>) {
   useEffect(() => {
     const down = (e: KeyboardEvent) => {
       if (e.metaKey || e.ctrlKey || e.altKey) return
-      const focused = document.activeElement === wrap.current
+      const active = document.activeElement
+      // In full screen anything but a control counts as "playing".
+      const focused =
+        active === wrap.current ||
+        (settings.fullscreen && !isTyping(active) && !(active instanceof HTMLButtonElement) && !(active instanceof HTMLAnchorElement))
       const key = KEYMAP[e.code]
       if (key) {
         const canSteer = focused || (settings.visibility.current >= 0.6 && !isTyping(document.activeElement))
@@ -71,6 +78,19 @@ function useKeyboard(wrap: RefObject<HTMLDivElement | null>) {
       clearKeys()
     }
   }, [wrap])
+}
+
+// Mounted next to the Scene (inside the same Suspense), so it only ticks once
+// physics, fonts and the avatar are in. The frame it ticks on is painted
+// right after; the next animation frame is our "first frame on screen".
+function FirstFrame() {
+  const sent = useRef(false)
+  useFrame(() => {
+    if (sent.current) return
+    sent.current = true
+    requestAnimationFrame(() => signalHeroReady())
+  })
+  return null
 }
 
 type Stick = { ox: number; oy: number; x: number; y: number }
@@ -125,41 +145,51 @@ function useJoystick() {
 type Props = {
   // Render + simulate only while true (hero on screen, tab visible).
   active: boolean
+  // Music may play (hero mostly on screen or full screen, tab visible).
+  audible: boolean
   reducedMotion: boolean
   // 0..1 share of the hero on screen, kept current by the parent.
   visibility: RefObject<number>
-  // Bump to stack everything back up.
-  resetKey: number
+  fullscreen: boolean
   label: string
   onFirstInput?: () => void
   onContextLost?: () => void
+  onReadMore: () => void
 }
 
-export default function Playground({ active, reducedMotion, visibility, resetKey, label, onFirstInput: onFirst, onContextLost }: Props) {
+export default function Playground({ active, audible, reducedMotion, visibility, fullscreen, label, onFirstInput: onFirst, onContextLost, onReadMore }: Props) {
   const wrap = useRef<HTMLDivElement>(null)
   const colors = useWorldColors()
 
   settings.reducedMotion = reducedMotion
+  settings.fullscreen = fullscreen
   useEffect(() => {
     settings.visibility = visibility
   }, [visibility])
   useEffect(() => (onFirst ? onFirstInput(onFirst) : undefined), [onFirst])
+  useGameAudio(audible)
+
+  // Nothing will render while the hero is off screen or the tab is hidden,
+  // so don't hold the preloader for it.
   useEffect(() => {
-    if (resetKey > 0) resetWorld()
-  }, [resetKey])
+    if (!active) signalHeroReady()
+  }, [active])
 
   const [dpr, setDpr] = useState(() => Math.min(window.devicePixelRatio || 1, MAX_DPR))
   useKeyboard(wrap)
   const { stick, handlers } = useJoystick()
 
+  const touchAction = fullscreen ? 'none' : 'pan-y'
   return (
+    <>
     <div
       ref={wrap}
       className="hero__canvas"
       tabIndex={0}
       role="application"
       aria-label={label}
-      aria-roledescription="3D playground"
+      aria-roledescription="3D game"
+      style={{ touchAction }}
       {...handlers}
     >
       <Canvas
@@ -169,10 +199,11 @@ export default function Playground({ active, reducedMotion, visibility, resetKey
         flat
         camera={{ fov: 30, near: 0.5, far: 120, position: [6, 15, 18] }}
         gl={{ antialias: true, alpha: true, powerPreference: 'high-performance' }}
-        onCreated={({ gl }) => {
-          gl.domElement.addEventListener('webglcontextlost', () => onContextLost?.(), { once: true })
+        onCreated={(state) => {
+          state.gl.domElement.addEventListener('webglcontextlost', () => onContextLost?.(), { once: true })
+          if (import.meta.env.DEV) (window as unknown as { __r3f: unknown }).__r3f = state
         }}
-        style={{ touchAction: 'pan-y' }}
+        style={{ touchAction }}
       >
         <PerformanceMonitor
           flipflops={3}
@@ -182,6 +213,7 @@ export default function Playground({ active, reducedMotion, visibility, resetKey
         />
         <Suspense fallback={null}>
           <Scene colors={colors} paused={!active} />
+          <FirstFrame />
         </Suspense>
       </Canvas>
       {stick && (
@@ -190,5 +222,7 @@ export default function Playground({ active, reducedMotion, visibility, resetKey
         </div>
       )}
     </div>
+    <Hud reducedMotion={reducedMotion} fullscreen={fullscreen} onReadMore={onReadMore} />
+    </>
   )
 }

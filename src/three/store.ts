@@ -26,6 +26,8 @@ export const input = {
   joy: { x: 0, y: 0, active: false },
   // Tap / click-to-walk destination on the island.
   target: null as Vector3 | null,
+  // Further waypoints after `target` (e.g. walk behind a crate, then push).
+  route: [] as Vector3[],
   jumpQueued: false,
   waveQueued: false,
 }
@@ -34,10 +36,15 @@ export const settings = {
   reducedMotion: false,
   // 0..1, how much of the hero is on screen (written by Hero's observer).
   visibility: { current: 1 } as { current: number },
+  // True while the hero plays full screen (camera centres Jay).
+  fullscreen: false,
 }
 
 export const player = {
+  // Feet position in world space.
   position: new Vector3(0, 1, 3.6),
+  velocity: new Vector3(),
+  grounded: true,
 }
 
 // One-shot "the visitor did something" signal, used to fade the controls hint.
@@ -65,6 +72,8 @@ export type Resettable = {
   rotation: [number, number, number, number]
   // Loose bodies get scroll kicks and respawn when they fall off the island.
   loose: boolean
+  // Optional role for game logic (e.g. 'letter').
+  tag?: string
 }
 
 export const bodies = new Set<Resettable>()
@@ -80,5 +89,6 @@ export function placeBody(r: Resettable, dropFrom = 0) {
 
 export function resetWorld() {
   input.target = null
+  input.route = []
   bodies.forEach((r) => placeBody(r))
 }

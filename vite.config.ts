@@ -9,6 +9,6 @@ export default defineConfig({
     // Rapier inlines its wasm, so the lazy physics chunk is big on purpose.
     // No manualChunks: letting Rolldown split keeps three/rapier out of the
     // entry so the page renders before the 3D hero has loaded.
-    chunkSizeWarningLimit: 3300,
+    chunkSizeWarningLimit: 3500,
   },
 })

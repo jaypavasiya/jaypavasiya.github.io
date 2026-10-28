@@ -21,6 +21,12 @@ npm run dev      # http://localhost:5173
 npm run build    # type-check and build to dist/
 ```
 
+## The game
+
+The hero is a five-floor mini game: Hello, Journey, Work, Skills, Rooftop. Clear a floor's goal and a lift takes you up. Walk with WASD or the arrow keys, Space to jump, E to wave; on touch, tap or drag. "Play full screen" opens it edge to edge. Sound effects and the generated music stay off until the speaker toggle in the nav is switched on.
+
+Dev-only URL flags: `?floor=3` jumps to a floor; `?cam=close`, `?cam=head` and `?cam=side` frame the avatar for tuning.
+
 ## Edit content
 
 Everything personal lives in `src/content/profile.ts`. Entries marked `pending: true` show a "to confirm" tag on the site until they are verified.

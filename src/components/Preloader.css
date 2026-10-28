@@ -1,0 +1,127 @@
+.intro {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+}
+
+.intro-accent,
+.intro-panel {
+  position: absolute;
+  inset: 0;
+  clip-path: inset(0% 0% 0% 0%);
+}
+
+.intro-accent {
+  background: var(--accent);
+}
+
+.intro-panel {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: calc(var(--gutter) + 8px) var(--gutter);
+  background: var(--ink);
+  color: var(--paper);
+  overflow: hidden;
+}
+
+.intro-top {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  color: color-mix(in srgb, var(--paper) 62%, transparent);
+}
+
+/* Each line is its own mask so the exit can slide text up and out. */
+.intro-line {
+  display: block;
+  overflow: clip;
+}
+
+.intro-line > * {
+  display: inline-block;
+}
+
+.intro-pulse {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  margin-right: 8px;
+  border-radius: 50%;
+  background: var(--accent);
+  vertical-align: 1px;
+  animation: intro-blink 0.9s steps(2, jump-none) infinite;
+}
+
+@keyframes intro-blink {
+  to {
+    opacity: 0.2;
+  }
+}
+
+.intro-bottom {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 8px 32px;
+  padding-bottom: 28px;
+}
+
+.intro-name {
+  font-family: var(--font-display);
+  font-size: clamp(2.6rem, 10.5vw, 10rem);
+  font-weight: 500;
+  line-height: 0.95;
+  letter-spacing: -0.045em;
+  white-space: pre;
+  padding-bottom: 0.06em;
+}
+
+.intro-count {
+  font-size: clamp(2.4rem, 8vw, 7rem);
+  font-weight: 300;
+  line-height: 0.9;
+  letter-spacing: -0.04em;
+  color: var(--accent);
+  font-variant-numeric: tabular-nums;
+}
+
+.intro-bar {
+  position: absolute;
+  left: var(--gutter);
+  right: var(--gutter);
+  bottom: calc(var(--gutter) + 4px);
+  height: 2px;
+  background: var(--paper);
+  transform: scaleX(0);
+  transform-origin: left center;
+}
+
+.intro-panel::after {
+  content: '';
+  position: absolute;
+  left: var(--gutter);
+  right: var(--gutter);
+  bottom: calc(var(--gutter) + 4px);
+  height: 2px;
+  background: color-mix(in srgb, var(--paper) 16%, transparent);
+}
+
+.intro-bar {
+  z-index: 1;
+}
+
+/* The page keeps its native scrollbar so nothing shifts when the curtain lifts. */
+.intro.is-reduced .intro-count-line,
+.intro.is-reduced .intro-top .intro-line + .intro-line,
+.intro.is-reduced .intro-bar,
+.intro.is-reduced .intro-panel::after {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .intro-pulse {
+    animation: none;
+  }
+}

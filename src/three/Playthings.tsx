@@ -77,7 +77,7 @@ export function Playthings({ colors }: { colors: WorldColors }) {
       <Cube position={[-3.2, 0.36, 2.9]} size={0.72} color={colors.accent4} yaw={0.6} />
 
       {/* bowling corner, right */}
-      <Ball position={[3.4, 0.5, 3.4]} r={0.5} color={colors.accent} />
+      <Ball position={[4.6, 0.5, 3.3]} r={0.5} color={colors.accent} />
       {[
         [4.6, 1.8],
         [4.3, 1.25],
