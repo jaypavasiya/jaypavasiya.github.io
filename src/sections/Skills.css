@@ -1,0 +1,181 @@
+.sk-head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 28px 40px;
+  margin-bottom: clamp(32px, 5vw, 56px);
+}
+
+.sk-title {
+  margin: 0;
+  font-size: clamp(2.6rem, 8vw, 7.5rem);
+  line-height: 0.92;
+  letter-spacing: -0.045em;
+  font-weight: 600;
+}
+
+.sk-side {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px 28px;
+}
+
+.sk-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 20px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  color: var(--ink-2);
+}
+
+.sk-legend li {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.sk-legend-count {
+  color: var(--ink-3);
+}
+
+.sk-swatch {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.sk-swatch--frontend {
+  background: var(--accent);
+}
+.sk-swatch--backend {
+  background: var(--accent-2);
+}
+.sk-swatch--tools {
+  background: var(--accent-3);
+}
+
+.sk-shake {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 18px;
+  border: 1px solid var(--ink);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--ink);
+  cursor: pointer;
+  transition: background-color 0.25s, color 0.25s, transform 0.4s var(--ease-spring);
+}
+
+.sk-shake:hover {
+  background: var(--ink);
+  color: var(--paper);
+}
+
+.sk-shake:active {
+  transform: scale(0.94) rotate(-3deg);
+}
+
+/* ---------- physics stage ---------- */
+
+.sk-stage {
+  position: relative;
+  /* Wide screens spread the pile thin, so the box only needs to be a bit
+     taller than the stack plus room for pills to fall in. */
+  height: clamp(360px, 46vh, 460px);
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background-color: var(--paper);
+  background-image: radial-gradient(var(--line) 1px, transparent 1.2px);
+  background-size: 22px 22px;
+  user-select: none;
+  -webkit-user-select: none;
+  /* Vertical page scroll stays native; pills opt out on touchstart. */
+  touch-action: pan-y;
+}
+
+.sk-caption {
+  position: absolute;
+  top: 16px;
+  left: 18px;
+  margin: 0;
+  color: var(--ink-3);
+  pointer-events: none;
+}
+
+.sk-pill {
+  display: inline-block;
+  padding: 0.5em 1.05em 0.55em;
+  border-radius: 999px;
+  font-size: clamp(1rem, 1.75vw, 1.7rem);
+  font-weight: 500;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+}
+
+.sk-stage .sk-pill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  visibility: hidden;
+  cursor: grab;
+  will-change: transform;
+  touch-action: none;
+}
+
+.sk-stage.is-dragging,
+.sk-stage.is-dragging .sk-pill {
+  cursor: grabbing;
+}
+
+.sk-pill--frontend {
+  background: var(--accent);
+  color: var(--accent-ink);
+}
+
+/* Light text on the blue in both themes (paper in light, ink in dark). */
+.sk-pill--backend {
+  background: var(--accent-2);
+  color: var(--paper);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) .sk-pill--backend {
+    color: var(--ink);
+  }
+}
+
+:root[data-theme='dark'] .sk-pill--backend {
+  color: var(--ink);
+}
+
+.sk-pill--tools {
+  background: var(--accent-3);
+  color: var(--accent-ink);
+}
+
+/* Reduced motion: same pills, laid out flat. */
+.sk-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding: clamp(20px, 3vw, 36px);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+}
+
+@media (max-width: 560px) {
+  .sk-stage {
+    height: 500px;
+  }
+
+  .sk-pill {
+    font-size: 0.95rem;
+  }
+}

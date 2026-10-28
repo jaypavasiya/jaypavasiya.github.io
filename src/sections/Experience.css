@@ -1,0 +1,229 @@
+.xp-head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: clamp(40px, 6vw, 80px);
+}
+
+.xp-title {
+  margin: 0;
+  font-size: clamp(2.6rem, 8vw, 7.5rem);
+  line-height: 0.92;
+  letter-spacing: -0.045em;
+  font-weight: 600;
+}
+
+.xp-hint {
+  margin: 0;
+  color: var(--ink-3);
+  white-space: nowrap;
+}
+
+.xp-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid var(--line);
+}
+
+.xp-item {
+  position: relative;
+  border-bottom: 1px solid var(--line);
+  overflow: hidden;
+}
+
+.xp-heading {
+  margin: 0;
+  font: inherit;
+}
+
+.xp-row {
+  position: relative;
+  display: grid;
+  grid-template-columns: 3.5rem minmax(0, 1fr) minmax(0, 0.7fr) 13rem 28px;
+  align-items: center;
+  gap: clamp(12px, 2vw, 32px);
+  width: 100%;
+  padding: clamp(22px, 3vw, 36px) 0;
+  border: 0;
+  background: none;
+  text-align: left;
+  cursor: pointer;
+  color: var(--ink);
+}
+
+.xp-row:focus-visible {
+  outline-offset: -2px;
+}
+
+.xp-index {
+  color: var(--ink-3);
+  transition: color 0.3s;
+}
+
+.xp-company {
+  min-width: 0;
+  font-size: clamp(1.5rem, 3.4vw, 3rem);
+  font-weight: 500;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  transition: transform 0.6s var(--ease-out);
+}
+
+.xp-company .pending-tag {
+  transform: translateY(-0.2em);
+}
+
+.xp-role {
+  color: var(--ink-2);
+  font-size: clamp(0.98rem, 1.2vw, 1.1rem);
+}
+
+.xp-period {
+  color: var(--ink-3);
+  text-align: right;
+  white-space: nowrap;
+}
+
+/* Plus that rotates into a cross. */
+.xp-toggle {
+  position: relative;
+  justify-self: end;
+  width: 28px;
+  height: 28px;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  transition: transform 0.6s var(--ease-out), background-color 0.3s, border-color 0.3s;
+}
+
+.xp-toggle::before,
+.xp-toggle::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 10px;
+  height: 1.5px;
+  background: currentColor;
+  transform: translate(-50%, -50%);
+}
+
+.xp-toggle::after {
+  transform: translate(-50%, -50%) rotate(90deg);
+}
+
+/* Thin accent line sweeping across the bottom of the row. */
+.xp-sweep {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: 1px;
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.7s var(--ease-out);
+}
+
+@media (hover: hover) {
+  .xp-row:hover .xp-sweep {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+  .xp-row:hover .xp-index {
+    color: var(--accent);
+  }
+  .xp-row:hover .xp-company {
+    transform: translateX(10px);
+  }
+  .xp-row:hover .xp-toggle {
+    border-color: var(--ink);
+  }
+}
+
+.xp-row:focus-visible .xp-sweep {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+.xp-item.is-open .xp-index {
+  color: var(--accent);
+}
+
+.xp-item.is-open .xp-toggle {
+  transform: rotate(135deg);
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--accent-ink);
+}
+
+.xp-panel-inner {
+  display: grid;
+  grid-template-columns: 3.5rem minmax(0, 1fr) minmax(0, 0.7fr) 13rem 28px;
+  gap: clamp(12px, 2vw, 32px);
+  padding-bottom: clamp(28px, 4vw, 48px);
+}
+
+.xp-summary {
+  grid-column: 2 / 4;
+  max-width: 52ch;
+  margin: 0;
+  color: var(--ink-2);
+  font-size: clamp(1.1rem, 1.8vw, 1.5rem);
+  line-height: 1.35;
+  letter-spacing: -0.01em;
+}
+
+@media (max-width: 860px) {
+  .xp-hint {
+    display: none;
+  }
+
+  .xp-row {
+    grid-template-columns: 2.25rem minmax(0, 1fr) 28px;
+    row-gap: 10px;
+  }
+
+  .xp-index,
+  .xp-company,
+  .xp-toggle {
+    grid-row: 1;
+  }
+
+  .xp-role,
+  .xp-period {
+    grid-row: 2;
+  }
+
+  .xp-role {
+    grid-column: 2;
+  }
+
+  .xp-period {
+    grid-column: 2 / 4;
+    justify-self: end;
+  }
+
+  .xp-panel-inner {
+    grid-template-columns: 2.25rem minmax(0, 1fr);
+  }
+
+  .xp-summary {
+    grid-column: 2;
+  }
+}
+
+.xp-edu {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 8px 20px;
+  margin: 40px 0 0;
+  color: var(--ink-2);
+}
+
+.xp-edu .mono {
+  color: var(--ink-3);
+}
+
