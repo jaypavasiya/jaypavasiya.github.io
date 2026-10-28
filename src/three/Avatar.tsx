@@ -71,37 +71,66 @@ function circleShape(r: number) {
   return s
 }
 
+// Squared-off octagon, like the thin hexagonal metal frames that are
+// everywhere right now. `c` is how much each corner is clipped.
+function octagonShape(w: number, h: number, c: number) {
+  const s = new Shape()
+  const x = w / 2
+  const y = h / 2
+  s.moveTo(-x + c, y)
+  s.lineTo(x - c, y)
+  s.lineTo(x, y - c)
+  s.lineTo(x, -y + c * 1.3)
+  s.lineTo(x - c * 1.3, -y)
+  s.lineTo(-x + c * 1.3, -y)
+  s.lineTo(-x, -y + c * 1.3)
+  s.lineTo(-x, y - c)
+  s.closePath()
+  return s
+}
+
 function useGlassesGeometry(cfg: AvatarConfig) {
   return useMemo(() => {
     const k = cfg.glassesScale
-    const border = 0.026 * k
+    const border = (cfg.glassesWire ? 0.011 : 0.026) * k
     let outer: Shape
     let inner: Shape
     let halfW: number
+    let halfH: number
     if (cfg.glassesShape === 'round') {
       halfW = 0.112 * k
+      halfH = halfW
       outer = circleShape(halfW)
       inner = circleShape(halfW - border)
+    } else if (cfg.glassesShape === 'geometric') {
+      const w = 0.24 * k
+      const h = 0.2 * k
+      halfW = w / 2
+      halfH = h / 2
+      outer = octagonShape(w, h, 0.045 * k)
+      inner = octagonShape(w - border * 2, h - border * 2, 0.04 * k)
     } else {
       const w = 0.235 * k
       const h = 0.19 * k
       halfW = w / 2
+      halfH = h / 2
       outer = roundedRectShape(w, h, 0.07 * k)
       inner = roundedRectShape(w - border * 2, h - border * 2, 0.05 * k)
     }
     outer.holes.push(inner)
+    const depth = cfg.glassesWire ? 0.01 : 0.022
     const frame = new ExtrudeGeometry(outer, {
-      depth: 0.022,
+      depth,
       bevelEnabled: true,
-      bevelThickness: 0.006,
-      bevelSize: 0.005,
+      bevelThickness: cfg.glassesWire ? 0.003 : 0.006,
+      bevelSize: cfg.glassesWire ? 0.002 : 0.005,
       bevelSegments: 2,
       curveSegments: 18,
     })
-    frame.translate(0, 0, -0.011)
+    frame.translate(0, 0, -depth / 2)
     const lens = new ShapeGeometry(inner, 18)
-    return { frame, lens, halfW }
-  }, [cfg.glassesShape, cfg.glassesScale])
+    return { frame, lens, halfW, halfH }
+  }, [cfg.glassesShape, cfg.glassesScale, cfg.glassesWire])
 }
 
 // A thin bar from a to b (glasses arms, bridge).
@@ -120,8 +149,9 @@ function Bar({ a, b, thickness, material }: { a: Vector3; b: Vector3; thickness:
   )
 }
 
-function Glasses({ cfg, frameMat, lensMat }: { cfg: AvatarConfig; frameMat: MeshStandardMaterial; lensMat: MeshPhysicalMaterial }) {
-  const { frame, lens, halfW } = useGlassesGeometry(cfg)
+function Glasses({ cfg, frameMat, browMat, lensMat }: { cfg: AvatarConfig; frameMat: MeshStandardMaterial; browMat: MeshStandardMaterial; lensMat: MeshPhysicalMaterial }) {
+  const { frame, lens, halfW, halfH } = useGlassesGeometry(cfg)
+  const wire = cfg.glassesWire ? 0.55 : 1
   const pts = useMemo(() => {
     const outerX = EYE_X + halfW * Math.cos(GLASSES_TILT)
     const outerZ = GLASSES_Z - halfW * Math.sin(GLASSES_TILT)
@@ -150,13 +180,16 @@ function Glasses({ cfg, frameMat, lensMat }: { cfg: AvatarConfig; frameMat: Mesh
         <group key={s} position={[s * EYE_X, EYE_Y, GLASSES_Z]} rotation={[0, s * GLASSES_TILT, 0]}>
           <mesh geometry={frame} material={frameMat} />
           <mesh geometry={lens} material={lensMat} position={[0, 0, -0.004]} userData={{ noShadow: true }} />
+          {cfg.glassesBrowColor && (
+            <RoundedBox args={[halfW * 1.55, 0.014, 0.014]} radius={0.006} smoothness={2} position={[0, halfH - 0.005, 0.004]} material={browMat} />
+          )}
         </group>
       ))}
-      <Bar a={pts.bridgeA} b={pts.bridgeB} thickness={0.022} material={frameMat} />
-      <Bar a={pts.hingeR} b={pts.sideR} thickness={0.02} material={frameMat} />
-      <Bar a={pts.sideR} b={pts.earR} thickness={0.018} material={frameMat} />
-      <Bar a={pts.hingeL} b={pts.sideL} thickness={0.02} material={frameMat} />
-      <Bar a={pts.sideL} b={pts.earL} thickness={0.018} material={frameMat} />
+      <Bar a={pts.bridgeA} b={pts.bridgeB} thickness={0.022 * wire} material={frameMat} />
+      <Bar a={pts.hingeR} b={pts.sideR} thickness={0.02 * wire} material={browMat} />
+      <Bar a={pts.sideR} b={pts.earR} thickness={0.018 * wire} material={browMat} />
+      <Bar a={pts.hingeL} b={pts.sideL} thickness={0.02 * wire} material={browMat} />
+      <Bar a={pts.sideL} b={pts.earL} thickness={0.018 * wire} material={browMat} />
     </group>
   )
 }
@@ -267,7 +300,8 @@ function Face({ cfg, mats, eyesRef }: { cfg: AvatarConfig; mats: Mats; eyesRef: 
     [],
   )
   const beard = useMemo(
-    () => new SphereGeometry(HEAD_R + 0.016, 36, 16, Math.PI / 2 - 1.45, 2.9, Math.PI * 0.56, Math.PI * 0.32),
+    // Starts below the cheekbones so it never reaches the lenses.
+    () => new SphereGeometry(HEAD_R + 0.016, 36, 16, Math.PI / 2 - 1.45, 2.9, Math.PI * 0.615, Math.PI * 0.27),
     [],
   )
 
@@ -336,7 +370,14 @@ function makeMaterials(cfg: AvatarConfig) {
     mouth: clay('#4a1f17', 0.5),
     blush: new MeshStandardMaterial({ color: cfg.blushColor, roughness: 0.9, transparent: true, opacity: 0.45, depthWrite: false }),
     beard: clay(cfg.beardColor, 0.8),
-    frame: new MeshStandardMaterial({ color: cfg.glassesColor, roughness: 0.28, metalness: 0.25 }),
+    frame: new MeshStandardMaterial({
+      color: cfg.glassesColor,
+      roughness: cfg.glassesWire ? 0.22 : 0.28,
+      metalness: cfg.glassesWire ? 0.85 : 0.25,
+    }),
+    browline: new MeshStandardMaterial({ color: cfg.glassesBrowColor ?? cfg.glassesColor, roughness: 0.3, metalness: 0.2 }),
+    watch: new MeshStandardMaterial({ color: cfg.watchColor, roughness: 0.35, metalness: 0.1 }),
+    watchFace: new MeshStandardMaterial({ color: '#9aa39a', roughness: 0.15, metalness: 0.3 }),
     lens: new MeshPhysicalMaterial({
       color: cfg.lensTint,
       roughness: 0.04,
@@ -488,14 +529,44 @@ export function Avatar({ motion, cameraYaw, config = avatarConfig }: Props) {
           <mesh position={[0, 0.19, 0]} scale={[1.14, 1, 0.92]} material={mats.shirt}>
             <capsuleGeometry args={[0.245, 0.2, 8, 20]} />
           </mesh>
-          {/* collar */}
-          <mesh position={[0, 0.5, 0]} rotation={[Math.PI / 2, 0, 0]} material={mats.trim}>
-            <torusGeometry args={[0.1, 0.026, 10, 24]} />
-          </mesh>
-          {/* chest badge */}
-          <mesh position={[-0.11, 0.3, 0.215]} rotation={[Math.PI / 2 - 0.15, 0, 0]} material={mats.trim}>
-            <cylinderGeometry args={[0.05, 0.05, 0.02, 20]} />
-          </mesh>
+          {config.shirtStyle === 'polo' ? (
+            <>
+              {/* collar: a band round the neck plus two flaps folding down */}
+              <mesh position={[0, 0.5, -0.01]} rotation={[Math.PI / 2, 0, 0]} material={mats.shirt}>
+                <torusGeometry args={[0.105, 0.03, 10, 24]} />
+              </mesh>
+              {[-1, 1].map((s) => (
+                <RoundedBox
+                  key={s}
+                  args={[0.12, 0.024, 0.1]}
+                  radius={0.01}
+                  smoothness={2}
+                  position={[s * 0.075, 0.47, 0.1]}
+                  rotation={[0.9, s * 0.35, s * -0.5]}
+                  material={mats.shirt}
+                />
+              ))}
+              {/* placket buttons */}
+              {[0.4, 0.31, 0.22].map((y) => (
+                <mesh key={y} position={[0, y, 0.228 - (0.4 - y) * 0.05]} material={mats.trim}>
+                  <sphereGeometry args={[0.014, 10, 8]} />
+                </mesh>
+              ))}
+              {/* small chest emblem */}
+              <mesh position={[0.12, 0.3, 0.212]} rotation={[Math.PI / 2 - 0.2, 0, 0]} material={mats.trim}>
+                <cylinderGeometry args={[0.022, 0.022, 0.006, 6]} />
+              </mesh>
+            </>
+          ) : (
+            <>
+              <mesh position={[0, 0.5, 0]} rotation={[Math.PI / 2, 0, 0]} material={mats.trim}>
+                <torusGeometry args={[0.1, 0.026, 10, 24]} />
+              </mesh>
+              <mesh position={[-0.11, 0.3, 0.215]} rotation={[Math.PI / 2 - 0.15, 0, 0]} material={mats.trim}>
+                <cylinderGeometry args={[0.05, 0.05, 0.02, 20]} />
+              </mesh>
+            </>
+          )}
         </group>
 
         {/* arms (pivot at the shoulder) */}
@@ -513,6 +584,17 @@ export function Avatar({ motion, cameraYaw, config = avatarConfig }: Props) {
             <mesh position={[0, -0.37, 0.005]} material={mats.skinShade}>
               <sphereGeometry args={[0.076, 16, 12]} />
             </mesh>
+            {config.watch && s === 1 && (
+              <group position={[0, -0.3, 0]}>
+                <mesh material={mats.watch}>
+                  <cylinderGeometry args={[0.074, 0.074, 0.04, 18]} />
+                </mesh>
+                <RoundedBox args={[0.06, 0.05, 0.03]} radius={0.008} smoothness={2} position={[0.07, 0, 0]} rotation={[0, 0, Math.PI / 2]} material={mats.watch} />
+                <mesh position={[0.087, 0, 0]} rotation={[0, 0, Math.PI / 2]} material={mats.watchFace}>
+                  <boxGeometry args={[0.032, 0.002, 0.022]} />
+                </mesh>
+              </group>
+            )}
           </Limb>
         ))}
 
@@ -529,7 +611,7 @@ export function Avatar({ motion, cameraYaw, config = avatarConfig }: Props) {
             </mesh>
             <Face cfg={config} mats={mats} eyesRef={eyes} />
             <Hair cfg={config} mat={mats.hair} />
-            <Glasses cfg={config} frameMat={mats.frame} lensMat={mats.lens} />
+            <Glasses cfg={config} frameMat={mats.frame} browMat={mats.browline} lensMat={mats.lens} />
           </group>
         </group>
       </group>

@@ -1,5 +1,5 @@
 import { useId, useLayoutEffect, useRef, useState } from 'react'
-import { experience } from '../content/profile'
+import { education, experience } from '../content/profile'
 import { gsap, Flip, useGSAP, prefersReducedMotion, SCRAMBLE_CHARS } from '../lib/motion'
 import { KineticHeading } from '../components/KineticHeading'
 import { ScrambleText } from '../components/ScrambleText'
@@ -107,12 +107,17 @@ export function Experience() {
               <div id={panelId} role="region" aria-labelledby={btnId} className="xp-panel" hidden={!isOpen}>
                 <div className="xp-panel-inner">
                   <p className="xp-summary">{job.summary}</p>
+                  <p className="xp-where mono">{job.location}</p>
                 </div>
               </div>
             </li>
           )
         })}
       </ul>
+      <p className="xp-edu">
+        <span className="mono">Education</span>
+        {education.degree}, {education.school} · {education.period}
+      </p>
     </section>
   )
 }

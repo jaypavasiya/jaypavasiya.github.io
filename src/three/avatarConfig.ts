@@ -2,7 +2,8 @@
 // reference photo; the Avatar component reads nothing else for appearance.
 
 export type HairStyle = 'quiff' | 'short' | 'buzz' | 'curly'
-export type GlassesShape = 'rounded-rect' | 'round'
+export type GlassesShape = 'rounded-rect' | 'round' | 'geometric'
+export type ShirtStyle = 'tee' | 'polo'
 
 export type AvatarConfig = {
   skinColor: string
@@ -20,11 +21,18 @@ export type AvatarConfig = {
   glassesShape: GlassesShape
   // Frame size multiplier (1 = sits snugly around the eyes).
   glassesScale: number
+  // Thin metal wire instead of a chunky acetate frame.
+  glassesWire: boolean
+  // Optional darker bar along the top of each lens (browline frames).
+  glassesBrowColor: string | null
   lensTint: string
   lensOpacity: number
   shirtColor: string
-  // Small chest print / collar trim colour.
+  shirtStyle: ShirtStyle
+  // Small chest print / collar trim / button colour.
   shirtTrimColor: string
+  watch: boolean
+  watchColor: string
   pantsColor: string
   shoeColor: string
   soleColor: string
@@ -33,27 +41,37 @@ export type AvatarConfig = {
   mustache: boolean
 }
 
+// Tuned from Jay's photo: short black hair swept up on top, full short
+// beard, thin gold-wire geometric glasses with a dark browline, black
+// collared shirt, black digital watch.
 export const avatarConfig: AvatarConfig = {
-  skinColor: '#b9805a',
-  skinShadeColor: '#a46c48',
+  // Sampled from the photo: lit skin ≈ #eeaf98, shaded ≈ #b3826d.
+  // The scene lighting brightens the base a little, so it sits between.
+  skinColor: '#d99c80',
+  skinShadeColor: '#c3866b',
   blushColor: '#e07a6a',
-  blush: true,
-  hairColor: '#1c1612',
+  blush: false,
+  hairColor: '#151110',
   hairStyle: 'quiff',
-  hairVolume: 0.7,
+  hairVolume: 0.85,
   eyeColor: '#17110d',
-  browColor: '#1c1612',
-  glassesColor: '#16151a',
-  glassesShape: 'rounded-rect',
-  glassesScale: 1,
-  lensTint: '#cfe0ff',
-  lensOpacity: 0.28,
-  shirtColor: '#ff4d1a',
-  shirtTrimColor: '#ffc83d',
-  pantsColor: '#2b3346',
+  browColor: '#151110',
+  glassesColor: '#c9b58a',
+  glassesShape: 'geometric',
+  glassesScale: 1.04,
+  glassesWire: true,
+  glassesBrowColor: '#1a1816',
+  lensTint: '#dfe9ff',
+  lensOpacity: 0.22,
+  shirtColor: '#1f1e22',
+  shirtStyle: 'polo',
+  shirtTrimColor: '#55545c',
+  watch: true,
+  watchColor: '#141414',
+  pantsColor: '#34405a',
   shoeColor: '#f6f2ea',
   soleColor: '#2a2725',
-  beard: false,
-  beardColor: '#2a211b',
-  mustache: false,
+  beard: true,
+  beardColor: '#151110',
+  mustache: true,
 }

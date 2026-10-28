@@ -1,25 +1,25 @@
 // Single source of truth for everything personal on the site.
-// Only facts confirmed from Jay's GitHub profile/README are filled in.
-// Anything marked `pending: true` is waiting on Jay's LinkedIn export and
-// renders with a visible "to confirm" tag until it is verified.
+// Sources: Jay's LinkedIn export (Oct 2026) and GitHub profile README.
+// Anything marked `pending: true` renders with a visible "to confirm" tag.
 
 export const profile = {
   name: 'Jay Pavasiya',
   firstName: 'Jay',
-  role: 'Full-Stack Developer',
+  role: 'Senior Frontend Developer',
   tagline: 'Shipping with AI',
   location: 'Gujarat, India',
   intro:
-    'I build end to end: pixel-perfect frontends, the APIs behind them, and the real-time bits in between.',
+    'I build modern, scalable web apps: pixel-perfect frontends, the real-time bits behind them, and enough backend to ship the whole thing.',
   about: [
-    'I’m a full-stack developer from Gujarat, India. I started on the frontend, fell for React, and kept going down the stack until I could ship a whole product on my own.',
-    'These days I pair-program with AI coding tools every day. They take me from idea to shipped feature much faster, so my time goes into product and architecture instead of boilerplate.',
+    'I started in 2019 as a graphic designer, moved into React the same year and haven’t looked back. Today I’m a senior frontend developer on Vibelets.ai, working remotely from Gujarat.',
+    'Most of my days are React: React Query, Redux, custom hooks and Context, built with Vite or Webpack, tested with Cypress. I like real-time apps over WebSockets, and I use Python for backend services, automation and integrations.',
+    'I pair-program with AI coding tools every day. They take me from idea to shipped feature much faster, so my time goes into product and architecture instead of boilerplate.',
   ],
-  askMeAbout: ['shipping fast with AI', 'React architecture', 'state management', 'real-time apps'],
+  askMeAbout: ['React architecture', 'real-time apps', 'shipping fast with AI', 'build tooling', 'WebAssembly'],
   email: 'jaypavasiya7@gmail.com',
   socials: [
     { label: 'GitHub', href: 'https://github.com/jaypavasiya' },
-    { label: 'LinkedIn', href: 'https://in.linkedin.com/in/jaypavasiya' },
+    { label: 'LinkedIn', href: 'https://www.linkedin.com/in/jaypavasiya' },
     { label: 'X', href: 'https://x.com/jay_pavasiya' },
     { label: 'Stack Overflow', href: 'https://stackoverflow.com/users/13516564/jay' },
   ],
@@ -29,35 +29,62 @@ export type Job = {
   company: string
   role: string
   period: string
+  location: string
   summary: string
   pending?: boolean
 }
 
-// TODO(jay): replace with LinkedIn experience. These came from an earlier
-// draft of the site and have not been verified.
+// From LinkedIn, newest first. Summaries only state what the profile says.
 export const experience: Job[] = [
   {
-    company: 'Adsparkx · Vibelets',
-    role: 'Developer',
-    period: '2022 to now',
-    summary: 'Building Vibelets, an AI marketing product: chat-driven UX, real-time streaming and the React data layer behind it.',
-    pending: true,
+    company: 'Vibelets.ai',
+    role: 'Senior Frontend Developer',
+    period: 'Sep 2025 to now',
+    location: 'Gurugram · Remote',
+    summary: 'Frontend for Vibelets, an AI marketing product: chat-driven agent UX, real-time streaming and the React data layer behind it.',
   },
   {
-    company: 'Light-Line',
+    company: 'Adsparkx',
     role: 'Frontend Developer',
-    period: '2021 to 2022',
-    summary: 'Frontend work across client web apps with React and Angular.',
-    pending: true,
+    period: 'Jul 2023 to now',
+    location: 'Delhi · Remote',
+    summary: 'Frontend development in JavaScript and React across Adsparkx’s ad-tech products.',
   },
   {
-    company: 'Freelance',
-    role: 'Web Developer',
-    period: '2020 to 2021',
-    summary: 'Websites and small web apps for clients.',
-    pending: true,
+    company: 'Across Infotech',
+    role: 'Frontend Developer',
+    period: 'Jul 2023 to Dec 2024',
+    location: 'Surat, Gujarat',
+    summary: 'Front-end development with React.js.',
+  },
+  {
+    company: 'Eliteware Solutions',
+    role: 'Frontend Developer · Freelance',
+    period: 'Jan 2023 to Jun 2023',
+    location: 'Vadodara · Remote',
+    summary: 'Freelance front-end development in JavaScript.',
+  },
+  {
+    company: 'Artoon Solutions',
+    role: 'Sr. React.js Developer',
+    period: 'Dec 2019 to Jan 2023',
+    location: 'Surat, Gujarat',
+    summary: 'Three years of React and TypeScript front-end development, growing into a senior React role.',
+  },
+  {
+    company: 'Oceantecnoweb',
+    role: 'Graphic Designer',
+    period: 'Mar 2019 to Oct 2019',
+    location: 'Surat, Gujarat',
+    summary: 'Where it started: design first, code second. It still shapes how I build UI.',
   },
 ]
+
+export const education = {
+  school: 'Sutex Bank College of Computer Applications',
+  degree: 'Bachelor’s, Computer Science',
+  period: '2016 to 2019',
+}
 
 export type Project = {
   name: string
@@ -114,7 +141,7 @@ export const projects: Project[] = [
 ]
 
 export const skills = {
-  frontend: ['React', 'TypeScript', 'Next.js', 'Astro', 'Angular', 'Redux', 'Tailwind', 'Sass', 'Three.js', 'GSAP'],
-  backend: ['Node.js', 'Express', 'REST', 'WebSockets', 'MongoDB', 'PostgreSQL'],
-  tools: ['Docker', 'Git', 'GitHub Actions', 'Vercel', 'Figma', 'AI agents'],
+  frontend: ['React', 'TypeScript', 'Next.js', 'React Query', 'Redux', 'Tailwind', 'SCSS', 'Astro', 'Angular', 'Three.js', 'GSAP'],
+  backend: ['Node.js', 'Python', 'Express', 'WebSockets', 'Socket.io', 'MongoDB', 'PostgreSQL'],
+  tools: ['Vite', 'Webpack', 'Cypress', 'Selenium', 'Docker', 'Git', 'GitHub Actions', 'Figma', 'AI agents'],
 }
