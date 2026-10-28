@@ -503,10 +503,11 @@ const SHIRT_RINGS: Ring[] = [
 ]
 
 // Jeans seat/hips, tucked under the tee. Closed underneath; the thighs
-// overlap it so there's no V at the crotch.
+// overlap it so there's no V at the crotch. The bottom stays shallow at the
+// front (well behind the thighs' front surface) so it never reads as a pouch.
 const PANTS_RINGS: Ring[] = [
-  { y: 0.775, w: 0.08, df: 0.06, db: 0.07, n: 2.2 },
-  { y: 0.81, w: 0.16, df: 0.1, db: 0.11, n: 2.4 },
+  { y: 0.815, w: 0.1, df: 0.03, db: 0.07, n: 2.2 },
+  { y: 0.845, w: 0.17, df: 0.07, db: 0.105, n: 2.4 },
   { y: 0.88, w: 0.182, df: 0.108, db: 0.118, n: 2.5 },
   { y: 0.95, w: 0.174, df: 0.102, db: 0.106, n: 2.4 },
   { y: 1.0, w: 0.158, df: 0.092, db: 0.094, n: 2.3 },
@@ -614,26 +615,27 @@ function Shoe({ mats }: { mats: Mats }) {
   )
 }
 
-// Rounded mitten hand, relaxed and slightly cupped: palm, fingers curling
-// towards the palm (which faces the thigh, -side * x) and a separate thumb
-// on the front. Wrist to fingertip ~0.18, about chin-to-brow.
+// Rounded mitten hand, relaxed and slightly cupped. The palm starts inside
+// the wrist (no step) and the fingers overlap it heavily, curling towards
+// the thigh (-side * x), so it reads as one hand rather than stacked balls.
+// Thin across the palm (x), wide across the knuckles (z). Wrist to
+// fingertip ~0.19, about chin-to-brow.
 function Hand({ mats, side }: { mats: Mats; side: number }) {
   return (
     <group rotation={[0, 0, side * 0.04]}>
-      <mesh position={[0, -0.05, 0.002]} scale={[0.031, 0.054, 0.046]} material={mats.skin}>
-        <sphereGeometry args={[1, 24, 16]} />
+      {/* palm */}
+      <mesh position={[0, -0.05, 0.004]} scale={[0.66, 1, 1]} material={mats.skin}>
+        <capsuleGeometry args={[0.04, 0.05, 8, 20]} />
       </mesh>
-      <group position={[0, -0.092, 0.002]} rotation={[0, 0, -side * 0.18]}>
-        <mesh position={[0, -0.038, 0]} scale={[0.028, 0.048, 0.043]} material={mats.skin}>
-          <sphereGeometry args={[1, 24, 16]} />
+      {/* fingers, together, curling in */}
+      <group position={[0, -0.085, 0.004]} rotation={[0, 0, -side * 0.22]}>
+        <mesh position={[0, -0.045, 0]} scale={[0.62, 1, 0.94]} material={mats.skin}>
+          <capsuleGeometry args={[0.037, 0.05, 8, 20]} />
         </mesh>
       </group>
-      {/* thumb: pad at the base of the palm, then the digit */}
-      <mesh position={[-side * 0.008, -0.036, 0.03]} scale={[0.018, 0.026, 0.02]} material={mats.skin}>
-        <sphereGeometry args={[1, 16, 12]} />
-      </mesh>
-      <mesh position={[-side * 0.014, -0.068, 0.042]} rotation={[-0.35, 0, side * 0.45]} material={mats.skin}>
-        <capsuleGeometry args={[0.0145, 0.04, 6, 14]} />
+      {/* thumb, on the front, angled down and in */}
+      <mesh position={[-side * 0.006, -0.062, 0.036]} rotation={[-0.38, 0, side * 0.4]} material={mats.skin}>
+        <capsuleGeometry args={[0.0155, 0.042, 6, 14]} />
       </mesh>
     </group>
   )
